@@ -6,8 +6,10 @@
     <%@include file="components/standard_js_css.jsp"%>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
+
+    <%@include file="components/navbar.jsp"%>
+
+    <h1><%= "Hello World!" %></h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
 </body>
