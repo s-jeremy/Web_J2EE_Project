@@ -11,8 +11,8 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
-        <mapping class="com.example.web_j2ee_project.hibernate.models.Client"/>
-        <mapping class="com.example.web_j2ee_project.hibernate.models.Article"/>
-        <mapping class="com.example.web_j2ee_project.hibernate.models.Categorie"/>
+        <mapping class="com.example.web_j2ee_project.hibernate.entites.Client"/>
+        <mapping class="com.example.web_j2ee_project.hibernate.entites.Article"/>
+        <mapping class="com.example.web_j2ee_project.hibernate.entites.Categorie"/>
     </session-factory>
 </hibernate-configuration>
