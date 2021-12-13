@@ -29,6 +29,20 @@ public class Client
     @Column(name = "adresse", nullable = false, length = 60)
     private String adresse;
 
+    public Client(String username, String password, String nom, String prenom, String mail, String adresse)
+    {
+        this.username = username;
+        this.password = password;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.adresse = adresse;
+    }
+
+    public Client()
+    {
+    }
+
     public String getAdresse()
     {
         return adresse;
@@ -98,4 +112,20 @@ public class Client
     {
         this.id = id;
     }
+
+    public boolean isComplete()
+    {
+        if (this.username!=null &&
+                this.password!=null &&
+                this.nom!=null &&
+                this.prenom!=null &&
+                this.adresse!=null &&
+                this.mail!=null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }
