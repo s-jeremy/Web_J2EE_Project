@@ -13,9 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "Inscription", urlPatterns = {"/inscription"})
+@WebServlet(name = "Inscription", urlPatterns = {"/Inscription"})
 public class Inscription extends HttpServlet
+
 {
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        processRequest(request,response);
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException{

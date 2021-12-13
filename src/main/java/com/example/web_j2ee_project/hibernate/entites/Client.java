@@ -115,12 +115,12 @@ public class Client
 
     public boolean isComplete()
     {
-        if (this.username!=null &&
-                this.password!=null &&
-                this.nom!=null &&
-                this.prenom!=null &&
-                this.adresse!=null &&
-                this.mail!=null){
+        if (!this.username.isEmpty() &&
+                !this.password.isEmpty() &&
+                !this.nom.isEmpty() &&
+                !this.prenom.isEmpty() &&
+                !this.adresse.isEmpty() &&
+                !this.mail.isEmpty()){
             return true;
         }
         else{
