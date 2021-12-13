@@ -5,7 +5,7 @@
   Time: 10:56
   To change this template use File | Settings | File Templates.
 --%>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light custom-bg">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">E-phone Market</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
