@@ -5,6 +5,8 @@
   Time: 10:56
   To change this template use File | Settings | File Templates.
 --%>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
 <nav class="navbar navbar-expand-lg navbar-light custom-bg">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">E-phone Market</a>
