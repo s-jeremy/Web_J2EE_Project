@@ -55,12 +55,17 @@ public class Inscription extends HttpServlet
                 }
                 else
                 {
-                    out.println("Un des champs est vide !");
+                    HttpSession httpSession = request.getSession();
+                    httpSession.setAttribute("notification","L'un des champs est vide !");
+                    response.sendRedirect("register.jsp");
                     return;
                 }
 
             } catch (Exception e){
-                e.printStackTrace();
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("notification","Une erreur est survenu !");
+                response.sendRedirect("register.jsp");
+                return;
             }
         }
     }
