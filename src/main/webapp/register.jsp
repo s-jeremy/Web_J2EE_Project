@@ -18,6 +18,7 @@
     <div class="row mt-5">
         <div class="col-md-4 offset-md-4">
             <div class="card">
+                <%@include file="components/notification.jsp"%>
                 <div class="card-body">
 
                     <h3 class="text-center my-3">
