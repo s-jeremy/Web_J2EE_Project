@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -46,7 +47,11 @@ public class Inscription extends HttpServlet
 
                     transaction.commit();
                     hibernateSession.close();
-                    out.println("Utilisateur enregistrer avec l'id : "+savedUserId);
+
+                    HttpSession httpSession = request.getSession();
+                    httpSession.setAttribute("notification","Inscription Réussite !");
+                    response.sendRedirect("register.jsp");
+                    return;
                 }
                 else
                 {
