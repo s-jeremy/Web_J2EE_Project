@@ -20,6 +20,8 @@
           <div class="card">
             <div class="card-body">
 
+                <%@include file="components/notification.jsp"%>
+
                 <h3 class="text-center my-3">
                     Connexion
                 </h3>
