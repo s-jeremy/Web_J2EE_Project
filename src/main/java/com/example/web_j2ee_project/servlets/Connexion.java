@@ -16,19 +16,28 @@ import java.io.PrintWriter;
 @WebServlet(name = "Connexion", urlPatterns = {"/Connexion"})
 public class Connexion extends HttpServlet
 {
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        processRequest(request,response);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try(PrintWriter out= response.getWriter()){
-            String username = request.getParameter("username");
+            String username = request.getParameter("user_name");
             String user_password = request.getParameter("user_password");
-
+            System.out.println(username);
+            System.out.println(user_password);
             UserDao userDao = new UserDao(FactoryProvider.getFactory());
             Client utilisateur = userDao.getUserByEmailPw(username,user_password);
-            //System.out.println(utilisateur);
+            System.out.println(utilisateur);
             HttpSession httpSession = request.getSession();
 
             if(utilisateur == null){
+                out.println("<h1> Problème </h1>");
                 httpSession.setAttribute("message","Invalide, essaye un autre");
                 response.sendRedirect("login.jsp");
                 return;
