@@ -37,15 +37,25 @@ public class Connexion extends HttpServlet
             HttpSession httpSession = request.getSession();
 
             if(utilisateur == null){
-                out.println("<h1> Problème </h1>");
+                //out.println("<h1> Problème </h1>");
                 httpSession.setAttribute("message","Invalide, essaye un autre");
                 response.sendRedirect("login.jsp");
                 return;
             } else{
                 out.println("<h1> Welcome " + utilisateur.getUsername() + " </h1>");
+
+                // Login.jsp
+                httpSession.setAttribute("current-user", utilisateur);
+                if(utilisateur.getRole().equals("admin")){
+                    response.sendRedirect("admin.jsp");
+                }
+                else if(utilisateur.getRole().equals("user")){
+                    response.sendRedirect("user.jsp");
+                }
+                else{
+                    out.println("Aucun rôle identifié");
+                }
             }
-
-
         }
     }
 }

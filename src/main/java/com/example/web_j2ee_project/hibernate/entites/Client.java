@@ -29,6 +29,9 @@ public class Client
     @Column(name = "adresse", nullable = false, length = 60)
     private String adresse;
 
+    @Column(name = "role", nullable = false, length = 60)
+    private String role;
+
     public Client(String username, String password, String nom, String prenom, String mail, String adresse)
     {
         this.username = username;
@@ -126,6 +129,11 @@ public class Client
         else{
             return false;
         }
+    }
+
+    public String getRole()
+    {
+        return role;
     }
 
 }
