@@ -9,8 +9,10 @@
 <html>
     <head>
         <title>Title</title>
+        <%@include file="components/standard_js_css.jsp"%>
     </head>
     <body>
+    <%@include file="components/navbar.jsp"%>
         <h1>Role : Utilisateur.</h1>
     </body>
 </html>

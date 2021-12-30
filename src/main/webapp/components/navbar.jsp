@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<%@ page import="com.example.web_j2ee_project.hibernate.entites.Client" language="java" %>
+<%
+
+  Client client = (Client)session.getAttribute("current-user");
+%>
 
 <nav class="navbar navbar-expand-lg navbar-light custom-bg">
   <div class="container-fluid">
@@ -27,12 +32,29 @@
       </ul>
 
       <ul class="navbar-nav ml-auto">
+        <%
+          if (client==null){
+
+        %>
+
         <li class="nav-item active">
           <a class="nav-link" href="login.jsp">Connexion</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="register.jsp">Inscription</a>
         </li>
+        <%
+          }else{
+        %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><%= client.getUsername()  %></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="Deconnexion">Déconnexion</a>
+        </li>
+        <%
+          }
+        %>
       </ul>
 
     </div>

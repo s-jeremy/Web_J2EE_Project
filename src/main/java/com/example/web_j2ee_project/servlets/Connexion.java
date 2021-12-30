@@ -38,7 +38,7 @@ public class Connexion extends HttpServlet
 
             if(utilisateur == null){
                 //out.println("<h1> Problème </h1>");
-                httpSession.setAttribute("message","Invalide, essaye un autre");
+                httpSession.setAttribute("notification","Invalide, essaye un autre");
                 response.sendRedirect("login.jsp");
                 return;
             } else{
