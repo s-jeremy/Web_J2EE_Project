@@ -8,15 +8,13 @@
 
 <%@ page import="com.example.web_j2ee_project.hibernate.entites.Client" language="java" %>
 <%
-    Client client = (Client)session.getAttribute("current-user");
-    out.print("Role : "+client.getRole());
-    if (client==null){
+    Client clientAdmin = (Client)session.getAttribute("current-user");
+    if (clientAdmin==null){
       session.setAttribute("notification","Vous n'êtes pas identfié !");
       response.sendRedirect("login.jsp");
       return;
     }else{
-        if (client.getRole().equals("user")){
-            out.print("Je rentre bien ici !");
+        if (clientAdmin.getRole().equals("user")){
             session.setAttribute("notification","Vous n'êtes pas autoriser à accéder à cette page !");
             response.sendRedirect("login.jsp");
             return;
