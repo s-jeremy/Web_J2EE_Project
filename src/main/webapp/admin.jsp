@@ -158,6 +158,7 @@
                         <div class="form-group">
                             <input type="number" class="form-control" name="quantite_produit" placeholder="Entrer la quantité du produit" required><br>
                         </div>
+                        <%-- Categories --%>
                         <%
                             CategorieDao categorieDao = new CategorieDao(FactoryProvider.getFactory());
                             List<Categorie> list = categorieDao.getCategories();
