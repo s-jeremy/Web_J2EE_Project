@@ -25,16 +25,29 @@ public class Article
     @Column(name = "quantite_produit", nullable = false)
     private Integer quantiteProduit;
 
-    @ManyToOne(optional = false)
     @JoinColumn(name = "id_categorie", nullable = false)
-    private Categorie idCategorie;
+    private Integer idCategorie;
 
-    public Categorie getIdCategorie()
+    public Article(String nomProduit, String descriptionProduit, Integer prixProduit, Integer quantiteProduit, Integer idCategorie)
+    {
+        this.nomProduit = nomProduit;
+        this.descriptionProduit = descriptionProduit;
+        this.prixProduit = prixProduit;
+        this.quantiteProduit = quantiteProduit;
+        this.idCategorie = idCategorie;
+    }
+
+    public Article()
+    {
+
+    }
+
+    public Integer getIdCategorie()
     {
         return idCategorie;
     }
 
-    public void setIdCategorie(Categorie idCategorie)
+    public void setIdCategorie(Integer idCategorie)
     {
         this.idCategorie = idCategorie;
     }
@@ -87,5 +100,16 @@ public class Article
     public void setId(Integer id)
     {
         this.id = id;
+    }
+
+    public boolean isComplete()
+    {
+        if (!this.nomProduit.isEmpty() &&
+                !this.descriptionProduit.isEmpty()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
