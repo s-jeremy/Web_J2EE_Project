@@ -19,6 +19,17 @@ public class Categorie
     @Column(name = "description", nullable = false, length = 1000)
     private String description;
 
+    public Categorie(String titre, String description)
+    {
+        this.titre = titre;
+        this.description = description;
+    }
+
+    public Categorie()
+    {
+
+    }
+
     public String getDescription()
     {
         return description;
@@ -47,5 +58,16 @@ public class Categorie
     public void setId(Integer id)
     {
         this.id = id;
+    }
+
+    public boolean isComplete()
+    {
+        if (!this.titre.isEmpty() &&
+                !this.description.isEmpty()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

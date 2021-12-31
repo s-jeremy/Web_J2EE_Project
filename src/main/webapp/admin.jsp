@@ -111,12 +111,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="AjoutCategorie" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="titre" placeholder="Entrer le nom de la catégorie" required><br>
+                            <input type="text" class="form-control" name="categorie_titre" placeholder="Entrer le nom de la catégorie" required><br>
                         </div>
                         <div class="form-group">
-                            <textarea type="text" class="form-control" name="description" placeholder="Entrer le descriptif de la catégorie" required></textarea><br>
+                            <textarea type="text" class="form-control" name="categorie_description" placeholder="Entrer le descriptif de la catégorie" required></textarea><br>
                         </div>
                         <div class="container text-center">
                             <button class="btn btn-outline-success">Ajouter</button>
