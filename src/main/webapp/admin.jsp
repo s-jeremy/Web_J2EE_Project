@@ -7,6 +7,10 @@
 --%>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <%@ page import="com.example.web_j2ee_project.hibernate.entites.Client" language="java" %>
+<%@ page import="com.example.web_j2ee_project.dao.CategorieDao" %>
+<%@ page import="com.example.web_j2ee_project.panier.FactoryProvider" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.web_j2ee_project.hibernate.entites.Categorie" %>
 <%
     Client clientAdmin = (Client)session.getAttribute("current-user");
     if (clientAdmin==null){
@@ -154,12 +158,20 @@
                         <div class="form-group">
                             <input type="number" class="form-control" name="quantite_produit" placeholder="Entrer la quantité du produit" required><br>
                         </div>
+                        <%
+                            CategorieDao categorieDao = new CategorieDao(FactoryProvider.getFactory());
+                            List<Categorie> list = categorieDao.getCategories();
+                        %>
                         <div class="form-group">
                             <select class="form-select" name="id_categorie" aria-label="Default select example">
                                 <option selected>Choisir la catégorie du produit</option>
-                                <option value="toto">Toto</option>
-                                <option value="toto">Toto</option>
-                                <option value="toto">Toto</option>
+                                <%
+                                    for(Categorie categorie:list){
+                                %>
+                                <option value="<%= categorie.getId()%>"><%= categorie.getTitre()%></option>
+                                <%
+                                    }
+                                %>
                             </select><br>
                         </div>
                         <div class="container text-center">
