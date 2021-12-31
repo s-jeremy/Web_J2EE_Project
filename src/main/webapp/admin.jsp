@@ -5,7 +5,7 @@
   Time: 19:06
   To change this template use File | Settings | File Templates.
 --%>
-
+<link rel="stylesheet" type="text/css" href="css/style.css" />
 <%@ page import="com.example.web_j2ee_project.hibernate.entites.Client" language="java" %>
 <%
     Client clientAdmin = (Client)session.getAttribute("current-user");
@@ -25,7 +25,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>Admin</title>
+      <link rel="stylesheet" type="text/css" href="css/style.css" />
+      <title>Admin</title>
       <%@include file="components/standard_js_css.jsp"%>
   </head>
   <body>
@@ -34,7 +35,7 @@
         <h1>Menu Administrateur</h1>
         <br><br><br>
     </div>
-        <div class="container">
+        <div class="container admin">
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -61,7 +62,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card" data-bs-toggle="modal" data-bs-target="#add-category">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 125px;" class="img-fluid rounded-circle border" src="img/add-category.png">
@@ -98,5 +99,35 @@
                 </div>
             </div>
         </div>
+
+  <%-- Boostrap Modal Component --%>
+    <%-- Ajouter une catégorie --%>
+    <!-- Modal -->
+    <div class="modal fade" id="add-category" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Remplir les informations de la catégorie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" placeholder="Entrer le nom de la catégorie" required><br>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="description" placeholder="Entrer le descriptif de la catégorie" required></textarea><br>
+                        </div>
+                        <div class="container text-center">
+                            <button class="btn btn-outline-success">Ajouter</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
   </body>
 </html>
