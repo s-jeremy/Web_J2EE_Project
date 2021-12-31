@@ -14,7 +14,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light custom-bg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">E-phone Market</a>
+    <a class="navbar-brand" href="index.jsp">E-phone Market</a>     <!-- old href ==> "#" -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,7 +24,8 @@
           <a class="nav-link active" aria-current="page" href="#">Magasin</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Compte</a>
+          <a class="nav-link active" aria-current="page" href="#" onclick="window.open('admin.jsp','_self');
+          <%--window.open('user.jsp','_self');--%>">Compte</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled">Jeremy et Mehdi</a>
