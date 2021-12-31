@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card" data-bs-toggle="modal" data-bs-target="#add-product">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 125px;" class="img-fluid rounded-circle border" src="img/add-product.png">
@@ -113,10 +113,51 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" placeholder="Entrer le nom de la catégorie" required><br>
+                            <input type="text" class="form-control" name="titre" placeholder="Entrer le nom de la catégorie" required><br>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="description" placeholder="Entrer le descriptif de la catégorie" required></textarea><br>
+                            <textarea type="text" class="form-control" name="description" placeholder="Entrer le descriptif de la catégorie" required></textarea><br>
+                        </div>
+                        <div class="container text-center">
+                            <button class="btn btn-outline-success">Ajouter</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-- Ajouter un produit --%>
+    <!-- Modal -->
+    <div class="modal fade" id="add-product" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="nom_produit" placeholder="Entrer le nom du produit" required><br>
+                        </div>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" name="description_produit" placeholder="Entrer le descriptif du produit" required></textarea><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="prix_produit" placeholder="Entrer le prix du produit (en €)" required><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="quantite_produit" placeholder="Entrer la quantité du produit" required><br>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-select" name="id_categorie" aria-label="Default select example">
+                                <option selected>Choisir la catégorie du produit</option>
+                                <option value="toto">Toto</option>
+                                <option value="toto">Toto</option>
+                                <option value="toto">Toto</option>
+                            </select><br>
                         </div>
                         <div class="container text-center">
                             <button class="btn btn-outline-success">Ajouter</button>
