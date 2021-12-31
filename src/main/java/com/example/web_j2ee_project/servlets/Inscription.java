@@ -1,5 +1,6 @@
 package com.example.web_j2ee_project.servlets;
 
+import com.example.web_j2ee_project.dao.UserDao;
 import com.example.web_j2ee_project.hibernate.entites.Client;
 import com.example.web_j2ee_project.panier.FactoryProvider;
 import org.hibernate.Session;
@@ -41,18 +42,28 @@ public class Inscription extends HttpServlet
                 Client user = new Client(user_username, user_password, user_surname, user_name,
                         user_email, user_address, user_role);
                 if (user.isComplete()){
-                    Session hibernateSession = FactoryProvider.getFactory().openSession();
-                    Transaction transaction = hibernateSession.beginTransaction();
+                    UserDao userDao = new UserDao(FactoryProvider.getFactory());
 
-                    int savedUserId = (int)hibernateSession.save(user);
+                    if (!userDao.checkIfUserExist(user_username)){
+                        Session hibernateSession = FactoryProvider.getFactory().openSession();
+                        Transaction transaction = hibernateSession.beginTransaction();
 
-                    transaction.commit();
-                    hibernateSession.close();
+                        int savedUserId = (int)hibernateSession.save(user);
 
-                    HttpSession httpSession = request.getSession();
-                    httpSession.setAttribute("notification","Inscription Réussite !");
-                    response.sendRedirect("register.jsp");
-                    return;
+                        transaction.commit();
+                        hibernateSession.close();
+
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","Inscription Réussite !");
+                        response.sendRedirect("register.jsp");
+                        return;
+                    }
+                    else{
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","L'utilisateur existe déja !");
+                        response.sendRedirect("register.jsp");
+                        return;
+                    }
                 }
                 else
                 {
