@@ -51,7 +51,7 @@
           <a class="nav-link" href="#"><%= client.getUsername()  %></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="Deconnexion">Déconnexion</a>
+          <a class="nav-link" href="Deconnexion">Deconnexion</a>
         </li>
         <%
           }
