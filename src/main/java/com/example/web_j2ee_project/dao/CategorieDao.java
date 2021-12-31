@@ -17,6 +17,25 @@ public class CategorieDao
         this.factory = factory;
     }
 
+    public boolean checkIfExist(String category_titre){
+        boolean exist = true;
+        try{
+            String query = "from Categorie where titre =: category_titre";
+            Session session = this.factory.openSession();
+            Query q = session.createQuery(query);
+            q.setParameter("category_titre", category_titre);
+            Categorie cat=(Categorie) q.uniqueResult();
+            if (cat==null){
+                exist = false;
+            }
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return exist;
+    }
+
     public List<Categorie> getCategories(){
         List<Categorie> categorieList = null;
         try{

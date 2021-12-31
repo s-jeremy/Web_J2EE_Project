@@ -1,5 +1,7 @@
 package com.example.web_j2ee_project.servlets;
 
+import com.example.web_j2ee_project.dao.CategorieDao;
+import com.example.web_j2ee_project.dao.UserDao;
 import com.example.web_j2ee_project.hibernate.entites.Categorie;
 import com.example.web_j2ee_project.hibernate.entites.Client;
 import com.example.web_j2ee_project.panier.FactoryProvider;
@@ -17,8 +19,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "AjoutCategorie", urlPatterns = {"/AjoutCategorie"})
 public class AjoutCategorie extends HttpServlet
-
 {
+    CategorieDao categorieDao = new CategorieDao(FactoryProvider.getFactory());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,27 +41,34 @@ public class AjoutCategorie extends HttpServlet
                 if (categorie.isComplete()){
                     Session hibernateSession = FactoryProvider.getFactory().openSession();
                     Transaction transaction = hibernateSession.beginTransaction();
+                    if (!categorieDao.checkIfExist(categorie_titre)){
+                        int savedCategorieId = (int)hibernateSession.save(categorie);
 
-                    int savedCategorieId = (int)hibernateSession.save(categorie);
+                        transaction.commit();
+                        hibernateSession.close();
 
-                    transaction.commit();
-                    hibernateSession.close();
-
-                    HttpSession httpSession = request.getSession();
-                    httpSession.setAttribute("notification","Ajout réussit !");
-                    return;
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","Catégorie \""+categorie_titre+"\" ajouté ! ");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }else {
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","La catégorie existe déja !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }
                 }
-                else
-                {
+                else{
                     HttpSession httpSession = request.getSession();
-                    httpSession.setAttribute("notification","L'un des champs est vide !");
+                    httpSession.setAttribute("notification","L'un des champs est vide ! !");
+                    response.sendRedirect("admin.jsp");
                     return;
                 }
 
             } catch (Exception e){
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute("notification","Une erreur est survenu !");
-                response.sendRedirect("register.jsp");
+                response.sendRedirect("admin.jsp");
                 return;
             }
         }
