@@ -3,6 +3,6 @@
   <component name="JpaBuddyIdeaProjectConfig">
     <option name="defaultUnitInitialized" value="true" />
     <option name="reverseEngineeringLastDbConnectionId" value="bbd69bcd-6c78-4fcc-8ffd-2cadec687fc5" />
-    <option name="reLastEntityCreationPackage" value="src/main/java/hibernate/entites" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/com/example/web_j2ee_project/hibernate/entites" />
   </component>
 </project>

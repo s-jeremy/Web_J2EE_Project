@@ -118,7 +118,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="AjoutCategorie" method="post">
+                    <form action="OperationAdmin" method="post">
+                        <input type="hidden" name="operation" value="ajoutCategorie">
                         <div class="form-group">
                             <input type="text" class="form-control" name="categorie_titre" placeholder="Entrer le nom de la catégorie" required><br>
                         </div>
@@ -145,18 +146,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="OperationAdmin" method="post">
+                        <input type="hidden" name="operation" value="ajoutArticle">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="nom_produit" placeholder="Entrer le nom du produit" required><br>
+                            <input type="text" class="form-control" name="article_nom" placeholder="Entrer le nom du produit" required><br>
                         </div>
                         <div class="form-group">
-                            <textarea type="text" class="form-control" name="description_produit" placeholder="Entrer le descriptif du produit" required></textarea><br>
+                            <textarea type="text" class="form-control" name="article_description" placeholder="Entrer le descriptif du produit" required></textarea><br>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" name="prix_produit" placeholder="Entrer le prix du produit (en €)" required><br>
+                            <input type="number" class="form-control" name="article_prix" placeholder="Entrer le prix du produit (en €)" required><br>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" name="quantite_produit" placeholder="Entrer la quantité du produit" required><br>
+                            <input type="number" class="form-control" name="article_quantite" placeholder="Entrer la quantité du produit" required><br>
                         </div>
                         <%-- Categories --%>
                         <%
@@ -164,7 +166,7 @@
                             List<Categorie> list = categorieDao.getCategories();
                         %>
                         <div class="form-group">
-                            <select class="form-select" name="id_categorie" aria-label="Default select example">
+                            <select class="form-select" name="categorie_id" aria-label="Default select example">
                                 <option selected>Choisir la catégorie du produit</option>
                                 <%
                                     for(Categorie categorie:list){
