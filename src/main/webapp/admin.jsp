@@ -36,6 +36,9 @@
         <br><br><br>
     </div>
         <div class="container admin">
+            <div class="container-fluid">
+                <%@include file="components/notification.jsp"%>
+            </div>
             <div class="row">
                 <div class="col">
                     <div class="card">
