@@ -32,7 +32,7 @@ public class Client
     @Column(name = "role", nullable = false, length = 60)
     private String role;
 
-    public Client(String username, String password, String nom, String prenom, String mail, String adresse)
+    public Client(String username, String password, String nom, String prenom, String mail, String adresse, String role)
     {
         this.username = username;
         this.password = password;
@@ -40,6 +40,7 @@ public class Client
         this.prenom = prenom;
         this.mail = mail;
         this.adresse = adresse;
+        this.role = role;
     }
 
     public Client()
@@ -116,6 +117,16 @@ public class Client
         this.id = id;
     }
 
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
+
+    public String getRole()
+    {
+        return role;
+    }
+
     public boolean isComplete()
     {
         if (!this.username.isEmpty() &&
@@ -123,17 +134,13 @@ public class Client
                 !this.nom.isEmpty() &&
                 !this.prenom.isEmpty() &&
                 !this.adresse.isEmpty() &&
-                !this.mail.isEmpty()){
+                !this.mail.isEmpty() &&
+                !this.role.isEmpty() ){
             return true;
         }
         else{
             return false;
         }
-    }
-
-    public String getRole()
-    {
-        return role;
     }
 
 }

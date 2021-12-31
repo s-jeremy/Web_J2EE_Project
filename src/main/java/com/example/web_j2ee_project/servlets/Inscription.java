@@ -36,9 +36,10 @@ public class Inscription extends HttpServlet
                 String user_address = request.getParameter("user_address");
                 String user_name = request.getParameter("user_name");
                 String user_surname = request.getParameter("user_surname");
+                String user_role = "user";
 
                 Client user = new Client(user_username, user_password, user_surname, user_name,
-                        user_email, user_address);
+                        user_email, user_address, user_role);
                 if (user.isComplete()){
                     Session hibernateSession = FactoryProvider.getFactory().openSession();
                     Transaction transaction = hibernateSession.beginTransaction();

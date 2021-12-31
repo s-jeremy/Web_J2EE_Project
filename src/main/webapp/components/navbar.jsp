@@ -24,8 +24,20 @@
           <a class="nav-link active" aria-current="page" href="#">Magasin</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#" onclick="window.open('admin.jsp','_self');
-          <%--window.open('user.jsp','_self');--%>">Compte</a>
+          <%
+            if (client!=null){
+              if (client.getRole().equals("admin")){
+
+          %>
+          <a class="nav-link active" aria-current="page" href="#" onclick="window.open('admin.jsp','_self');">Compte</a>
+          <%
+              }else if(client.getRole().equals("user")){
+          %>
+          <a class="nav-link active" aria-current="page" href="#" onclick="window.open('user.jsp','_self');">Compte</a>
+          <%
+              }
+            }
+          %>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled">Jeremy et Mehdi</a>
