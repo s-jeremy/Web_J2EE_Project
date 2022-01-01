@@ -1,10 +1,5 @@
 package com.example.web_j2ee_project.servlets;
 
-import com.example.web_j2ee_project.hibernate.entites.Client;
-import com.example.web_j2ee_project.panier.FactoryProvider;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

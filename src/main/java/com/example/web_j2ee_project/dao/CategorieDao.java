@@ -1,7 +1,6 @@
 package com.example.web_j2ee_project.dao;
 
 import com.example.web_j2ee_project.hibernate.entites.Categorie;
-import com.example.web_j2ee_project.hibernate.entites.Client;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

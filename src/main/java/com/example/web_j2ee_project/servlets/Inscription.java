@@ -38,9 +38,10 @@ public class Inscription extends HttpServlet
                 String user_name = request.getParameter("user_name");
                 String user_surname = request.getParameter("user_surname");
                 String user_role = "user";
+                int user_bloquer = 0;
 
                 Client user = new Client(user_username, user_password, user_surname, user_name,
-                        user_email, user_address, user_role);
+                        user_email, user_address, user_role, user_bloquer);
                 if (user.isComplete()){
                     UserDao userDao = new UserDao(FactoryProvider.getFactory());
 

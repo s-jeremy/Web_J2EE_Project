@@ -73,4 +73,24 @@ public class UserDao {
         }
         return list;
     }
+
+    public Client getUserById(int id_utilisateur){
+        Client utilisateur = null;
+        try{
+
+            String query = "from Client where id =: id_utilisateur";
+            Session session = this.factory.openSession();
+            Query q = session.createQuery(query);
+            q.setParameter("id_utilisateur", id_utilisateur);
+            utilisateur=(Client) q.uniqueResult();
+
+
+            session.close();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return utilisateur;
+    }
+
 }

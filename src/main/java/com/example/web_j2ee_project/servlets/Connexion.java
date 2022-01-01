@@ -42,6 +42,11 @@ public class Connexion extends HttpServlet
                 response.sendRedirect("login.jsp");
                 return;
             } else{
+                if (utilisateur.getBloquer()==1){
+                    httpSession.setAttribute("notification","Cette utilisateur est bloquer !");
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
                 out.println("<h1> Welcome " + utilisateur.getUsername() + " </h1>");
 
                 // Login.jsp

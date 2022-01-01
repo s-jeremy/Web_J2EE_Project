@@ -2,8 +2,10 @@ package com.example.web_j2ee_project.servlets;
 
 import com.example.web_j2ee_project.dao.ArticleDao;
 import com.example.web_j2ee_project.dao.CategorieDao;
+import com.example.web_j2ee_project.dao.UserDao;
 import com.example.web_j2ee_project.hibernate.entites.Article;
 import com.example.web_j2ee_project.hibernate.entites.Categorie;
+import com.example.web_j2ee_project.hibernate.entites.Client;
 import com.example.web_j2ee_project.panier.FactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,6 +26,7 @@ public class OperationAdmin extends HttpServlet
 {
     CategorieDao categorieDao = new CategorieDao(FactoryProvider.getFactory());
     ArticleDao articleDao = new ArticleDao(FactoryProvider.getFactory());
+    UserDao userDao = new UserDao(FactoryProvider.getFactory());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -112,6 +115,40 @@ public class OperationAdmin extends HttpServlet
                         return;
                     }
                 }
+                //
+                //Partie bloquer utilisateur !
+                //
+                if (operation.trim().equals("bloquerUtilisateur")){
+                    int utilisateur_id = Integer.valueOf(request.getParameter("utilisateur_id"));
+
+                    Client utilisateur = userDao.getUserById(utilisateur_id);
+
+                    Session hibernateSession = FactoryProvider.getFactory().openSession();
+                    Transaction transaction = hibernateSession.beginTransaction();
+
+                    if (utilisateur.getBloquer()==1){
+                        utilisateur.setBloquer(0);
+                        hibernateSession.update(utilisateur);
+                        transaction.commit();
+                        hibernateSession.close();
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","L'utilisateur à bien était débloquer !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }
+                    else{
+                        utilisateur.setBloquer(1);
+                        hibernateSession.update(utilisateur);
+                        transaction.commit();
+                        hibernateSession.close();
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","L'utilisateur à bien était bloquer !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }
+
+                }
+
 
 
             } catch (Exception e){

@@ -199,26 +199,30 @@
                 </div>
                 <div class="modal-body">
                     <form action="OperationAdmin" method="post">
-                        <%-- Categories --%>
+                        <input type="hidden" name="operation" value="bloquerUtilisateur">
+                        <%-- List utilisateur --%>
                         <%
                             UserDao userDao = new UserDao(FactoryProvider.getFactory());
                             List<Client> listUser = userDao.getUsers();
                         %>
                         <div class="form-group">
-                            <select class="form-select" name="categorie_id" aria-label="Default select example">
+                            <select class="form-select" name="utilisateur_id" aria-label="Default select example">
                                 <option selected>Choisir l'utilisateur'</option>
                                 <%
                                     for(Client user:listUser){
                                 %>
-                                <option value="<%= user.getId()%>"><%= user.getUsername()%></option>
-                                <p>Status : <%= user.getRole() %></p>
+                                <option value="<%= user.getId()%>"><%= user.getUsername()%> - Status = <%
+                                    if (user.getBloquer()==1){
+                                            %>Bloquer
+                                    <%}else{%>Débloquer<%} %>
+                                </option>
                                 <%
                                     }
                                 %>
                             </select><br>
                         </div>
                         <div class="container text-center">
-                            <button class="btn btn-outline-success">Bloquer / Débloquer</button>
+                            <button class="btn btn-outline-success"> Bloquer / Débloquer</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>

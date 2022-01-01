@@ -32,7 +32,11 @@ public class Client
     @Column(name = "role", nullable = false, length = 60)
     private String role;
 
-    public Client(String username, String password, String nom, String prenom, String mail, String adresse, String role)
+    @Column(name = "bloquer")
+    private Integer bloquer;
+
+
+    public Client(String username, String password, String nom, String prenom, String mail, String adresse, String role, int bloquer)
     {
         this.username = username;
         this.password = password;
@@ -41,6 +45,7 @@ public class Client
         this.mail = mail;
         this.adresse = adresse;
         this.role = role;
+        this.bloquer = bloquer;
     }
 
     public Client()
@@ -127,6 +132,16 @@ public class Client
         return role;
     }
 
+    public Integer getBloquer()
+    {
+        return bloquer;
+    }
+
+    public void setBloquer(Integer bloquer)
+    {
+        this.bloquer = bloquer;
+    }
+
     public boolean isComplete()
     {
         if (!this.username.isEmpty() &&
@@ -144,3 +159,4 @@ public class Client
     }
 
 }
+
