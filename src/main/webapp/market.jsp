@@ -48,24 +48,19 @@
   <%-- Produits --%>
   <div class="col-md-8">
     <div class="row mt-4">
-      <div class="col-md-12">
-        <div class="card-columns">
           <%
             for(Article article: listArticle){
           %>
-          <div class="card">
+          <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title"><%= article.getNomProduit() %></h5>
-              <p class="card-text">
-                <%= article.getDescriptionProduit() %>
-              </p>
+              <p class="card-text"><%= article.getDescriptionProduit() %></p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
           <%
             }
           %>
-        </div>
-      </div>
     </div>
   </div>
 
