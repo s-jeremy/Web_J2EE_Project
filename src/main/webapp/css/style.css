@@ -7,3 +7,7 @@
     cursor: pointer;
 }
 
+.list-group-item.active{
+    background: #00cdff !important;
+    border-color: #00cdff !important;
+}
