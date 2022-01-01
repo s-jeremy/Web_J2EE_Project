@@ -54,4 +54,23 @@ public class ArticleDao
         }
         return articleList;
     }
+
+    public List<Article> getArticlesCategorie(int categorie_id){
+        List<Article> articleList = null;
+        try{
+
+            String query = "from Article where idCategorie =: categorie_id";
+            Session session = this.factory.openSession();
+            Query q = session.createQuery(query);
+            q.setParameter("categorie_id", categorie_id);
+
+            articleList =q.getResultList();
+
+            session.close();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return articleList;
+    }
 }

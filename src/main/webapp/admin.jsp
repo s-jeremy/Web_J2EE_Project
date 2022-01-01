@@ -11,6 +11,7 @@
 <%@ page import="com.example.web_j2ee_project.panier.FactoryProvider" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.web_j2ee_project.hibernate.entites.Categorie" %>
+<%@ page import="com.example.web_j2ee_project.dao.UserDao" %>
 <%
     Client clientAdmin = (Client)session.getAttribute("current-user");
     if (clientAdmin==null){
@@ -45,7 +46,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="card">
+                    <div class="card" data-bs-toggle="modal" data-bs-target="#view-users">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 125px;" class="img-fluid rounded-circle border" src="img/user1.png">
@@ -57,7 +58,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card" data-bs-toggle="modal" data-bs-target="#view-category">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 125px;" class="img-fluid rounded-circle border" src="img/categories.png">
@@ -81,7 +82,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card" data-bs-toggle="modal" data-bs-target="#view-product">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 125px;" class="img-fluid rounded-circle border" src="img/product.png">
@@ -142,7 +143,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -164,6 +165,146 @@
                         <%
                             CategorieDao categorieDao = new CategorieDao(FactoryProvider.getFactory());
                             List<Categorie> list = categorieDao.getCategories();
+                        %>
+                        <div class="form-group">
+                            <select class="form-select" name="categorie_id" aria-label="Default select example">
+                                <option selected>Choisir la catégorie du produit</option>
+                                <%
+                                    for(Categorie categorie:list){
+                                %>
+                                <option value="<%= categorie.getId()%>"><%= categorie.getTitre()%></option>
+                                <%
+                                    }
+                                %>
+                            </select><br>
+                        </div>
+                        <div class="container text-center">
+                            <button class="btn btn-outline-success">Ajouter</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-- Aperçu des utilisateurs --%>
+    <!-- Modal -->
+    <div class="modal fade" id="view-users" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="OperationAdmin" method="post">
+                        <%-- Categories --%>
+                        <%
+                            UserDao userDao = new UserDao(FactoryProvider.getFactory());
+                            List<Client> listUser = userDao.getUsers();
+                        %>
+                        <div class="form-group">
+                            <select class="form-select" name="categorie_id" aria-label="Default select example">
+                                <option selected>Choisir l'utilisateur'</option>
+                                <%
+                                    for(Client user:listUser){
+                                %>
+                                <option value="<%= user.getId()%>"><%= user.getUsername()%></option>
+                                <p>Status : <%= user.getRole() %></p>
+                                <%
+                                    }
+                                %>
+                            </select><br>
+                        </div>
+                        <div class="container text-center">
+                            <button class="btn btn-outline-success">Bloquer / Débloquer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-- Aperçu Categorie --%>
+    <!-- Modal -->
+    <div class="modal fade" id="view-category" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="OperationAdmin" method="post">
+                        <input type="hidden" name="operation" value="ajoutArticle">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="article_nom" placeholder="Entrer le nom du produit" required><br>
+                        </div>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" name="article_description" placeholder="Entrer le descriptif du produit" required></textarea><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="article_prix" placeholder="Entrer le prix du produit (en €)" required><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="article_quantite" placeholder="Entrer la quantité du produit" required><br>
+                        </div>
+                        <%-- Categories --%>
+                        <%
+                            list = categorieDao.getCategories();
+                        %>
+                        <div class="form-group">
+                            <select class="form-select" name="categorie_id" aria-label="Default select example">
+                                <option selected>Choisir la catégorie du produit</option>
+                                <%
+                                    for(Categorie categorie:list){
+                                %>
+                                <option value="<%= categorie.getId()%>"><%= categorie.getTitre()%></option>
+                                <%
+                                    }
+                                %>
+                            </select><br>
+                        </div>
+                        <div class="container text-center">
+                            <button class="btn btn-outline-success">Ajouter</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-- Aperçu produit --%>
+    <!-- Modal -->
+    <div class="modal fade" id="view-product" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="OperationAdmin" method="post">
+                        <input type="hidden" name="operation" value="ajoutArticle">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="article_nom" placeholder="Entrer le nom du produit" required><br>
+                        </div>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" name="article_description" placeholder="Entrer le descriptif du produit" required></textarea><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="article_prix" placeholder="Entrer le prix du produit (en €)" required><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="article_quantite" placeholder="Entrer la quantité du produit" required><br>
+                        </div>
+                        <%-- Categories --%>
+                        <%
+
+                            list = categorieDao.getCategories();
                         %>
                         <div class="form-group">
                             <select class="form-select" name="categorie_id" aria-label="Default select example">

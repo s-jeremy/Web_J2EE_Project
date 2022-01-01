@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.util.List;
+
 public class UserDao {
 
     private SessionFactory factory;
@@ -52,5 +54,23 @@ public class UserDao {
             e.printStackTrace();
         }
         return utilisateur;
+    }
+
+    public List<Client> getUsers(){
+        List<Client> list = null;
+        try{
+
+            String query = "from Client";
+            Session session = this.factory.openSession();
+            Query q = session.createQuery(query);
+            list =  q.getResultList();
+
+
+            session.close();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }
