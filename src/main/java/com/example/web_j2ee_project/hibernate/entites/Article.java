@@ -25,7 +25,7 @@ public class Article
     @Column(name = "quantite_produit", nullable = false)
     private Integer quantiteProduit;
 
-    @JoinColumn(name = "id_categorie", nullable = false)
+    @Column(name = "id_categorie", nullable = false)
     private Integer idCategorie;
 
     public Article(String nomProduit, String descriptionProduit, Integer prixProduit, Integer quantiteProduit, Integer idCategorie)
