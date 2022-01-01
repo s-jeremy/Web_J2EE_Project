@@ -10,7 +10,7 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <title>Market</title>
+  <title>Magasin</title>
   <%@include file="components/standard_js_css.jsp"%>
 </head>
 <body>
@@ -18,13 +18,23 @@
 <%@include file="components/navbar.jsp"%>
 
 <div align="center">
-  <br><h1><%= "Market" %></h1>
+  <br><h1><%= "Magasin" %></h1>
 </div>
 
 <div class="row mt-3 mx-2">
   <%
+    String category = request.getParameter("categorie");
+
     ArticleDao articleDao = new ArticleDao(FactoryProvider.getFactory());
-    List<Article> listArticle = articleDao.getArticles();
+    List<Article> listArticle = null;
+    if(category == null || category.trim().equals("tous")){
+        listArticle = articleDao.getArticles();
+    }
+    else{
+        int categorie_id = Integer.parseInt(category.trim());
+        listArticle = articleDao.getArticlesCategorie(categorie_id);
+    }
+
     CategorieDao categorieDao = new CategorieDao(FactoryProvider.getFactory());
     List<Categorie> listCategorie = categorieDao.getCategories();
   %>
@@ -32,14 +42,14 @@
   <%-- Catégorie --%>
   <div class="col-md-2">
     <div class="list-group mt-4">
-      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+      <a href="market.jsp?categorie=tous" class="list-group-item list-group-item-action active" aria-current="true">
         Tous les produits
       </a>
       <%
         for(Categorie categorie : listCategorie){
       %>
           <!--out.println(categorie.getTitre() + "<br>");-->
-          <a href="#" class="list-group-item list-group-item-action"><%= categorie.getTitre() %></a>
+          <a href="market.jsp?categorie=<%= categorie.getId() %>" class="list-group-item list-group-item-action"><%= categorie.getTitre() %></a>
       <%
         }
       %>
@@ -61,8 +71,11 @@
               <button class="btn custom-bg text-white">Ajouter</button>
               <button class="btn btn-outline-primary"><%= article.getPrixProduit() %> &#8364;</button>
             </div>
-          </div><br>
+          </div>
           <%
+            }
+            if(listArticle.size() == 0){
+                out.println("<h3>Aucun produit concernant cette categorie</h3>");
             }
           %>
     </div>
