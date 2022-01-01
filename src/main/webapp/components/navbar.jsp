@@ -21,7 +21,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Magasin</a>
+          <%
+            if (client!=null){
+              if (client.getRole().equals("user")){
+          %>
+          <a class="nav-link active" aria-current="page" href="#" onclick="window.open('market.jsp','_self');">Magasin</a>
+          <%
+              }
+            }
+          %>
         </li>
         <li class="nav-item">
           <%
@@ -40,7 +48,7 @@
           %>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Jeremy et Mehdi</a>
+          <a class="nav-link disabled">Realise par Jeremy et Mehdi</a>
         </li>
       </ul>
 
