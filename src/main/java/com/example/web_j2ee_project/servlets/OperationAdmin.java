@@ -123,34 +123,127 @@ public class OperationAdmin extends HttpServlet
 
                     Client utilisateur = userDao.getUserById(utilisateur_id);
 
-                    Session hibernateSession = FactoryProvider.getFactory().openSession();
-                    Transaction transaction = hibernateSession.beginTransaction();
+                    if (utilisateur !=null)
+                    {
 
-                    if (utilisateur.getBloquer()==1){
-                        utilisateur.setBloquer(0);
-                        hibernateSession.update(utilisateur);
-                        transaction.commit();
-                        hibernateSession.close();
+                        Session hibernateSession = FactoryProvider.getFactory().openSession();
+                        Transaction transaction = hibernateSession.beginTransaction();
+
+                        if (utilisateur.getBloquer() == 1)
+                        {
+                            utilisateur.setBloquer(0);
+                            hibernateSession.update(utilisateur);
+                            transaction.commit();
+                            hibernateSession.close();
+                            HttpSession httpSession = request.getSession();
+                            httpSession.setAttribute("notification", "L'utilisateur à bien était débloquer !");
+                            response.sendRedirect("admin.jsp");
+                            return;
+                        }
+                        else
+                        {
+                            utilisateur.setBloquer(1);
+                            hibernateSession.update(utilisateur);
+                            transaction.commit();
+                            hibernateSession.close();
+                            HttpSession httpSession = request.getSession();
+                            httpSession.setAttribute("notification", "L'utilisateur à bien était bloquer !");
+                            response.sendRedirect("admin.jsp");
+                            return;
+                        }
+                    }else
+                    {
                         HttpSession httpSession = request.getSession();
-                        httpSession.setAttribute("notification","L'utilisateur à bien était débloquer !");
-                        response.sendRedirect("admin.jsp");
-                        return;
-                    }
-                    else{
-                        utilisateur.setBloquer(1);
-                        hibernateSession.update(utilisateur);
-                        transaction.commit();
-                        hibernateSession.close();
-                        HttpSession httpSession = request.getSession();
-                        httpSession.setAttribute("notification","L'utilisateur à bien était bloquer !");
+                        httpSession.setAttribute("notification", "Erreur sélection utilisateur !");
                         response.sendRedirect("admin.jsp");
                         return;
                     }
 
                 }
 
+                //
+                //Partie supprimer une catégorie !
+                //
+                if (operation.trim().equals("supprimerCategorie")){
+                    int categorie_id = Integer.valueOf(request.getParameter("categorie_id"));
 
+                    Categorie categorie = categorieDao.getCategorie(categorie_id);
 
+                    Session hibernateSession = FactoryProvider.getFactory().openSession();
+                    Transaction transaction = hibernateSession.beginTransaction();
+
+                    if (categorie!=null)
+                    {
+                        hibernateSession.delete(categorie);
+                        transaction.commit();
+                        hibernateSession.close();
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","La catégorie "+categorie.getTitre()+" à bien était supprimer !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }else{
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","Erreur selection de catégorie !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }
+                }
+                //
+                //Partie supprimer un produit !
+                //
+                if (operation.trim().equals("supprimerArticle")){
+                    int article_id = Integer.valueOf(request.getParameter("article_id"));
+
+                    Article article = articleDao.getArticle(article_id);
+
+                    Session hibernateSession = FactoryProvider.getFactory().openSession();
+                    Transaction transaction = hibernateSession.beginTransaction();
+
+                    if (article!=null)
+                    {
+                        hibernateSession.delete(article);
+                        transaction.commit();
+                        hibernateSession.close();
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","Le produit "+article.getNomProduit()+" à bien était supprimer !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }else{
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","Erreur selection de produit !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }
+                }
+                //
+                //Partie modifier quantité produit !
+                //
+                if (operation.trim().equals("modifierStockArticle")){
+                    int article_id = Integer.valueOf(request.getParameter("article_id"));
+                    int quantite = Integer.valueOf(request.getParameter("quantite"));
+
+                    Article article = articleDao.getArticle(article_id);
+
+                    Session hibernateSession = FactoryProvider.getFactory().openSession();
+                    Transaction transaction = hibernateSession.beginTransaction();
+
+                    if (article!=null)
+                    {
+                        article.setQuantiteProduit(quantite);
+                        hibernateSession.update(article);
+                        transaction.commit();
+                        hibernateSession.close();
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","Le stock du produit "+article.getNomProduit()+" est maintenant de "+article.getQuantiteProduit()+" !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }else{
+                        HttpSession httpSession = request.getSession();
+                        httpSession.setAttribute("notification","Erreur selection de produit !");
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    }
+                }
             } catch (Exception e){
                 System.out.println("Erreur : "+e);
                 HttpSession httpSession = request.getSession();

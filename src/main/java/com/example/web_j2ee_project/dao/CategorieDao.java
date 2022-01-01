@@ -54,4 +54,25 @@ public class CategorieDao
         }
         return categorieList;
     }
+
+    public Categorie getCategorie(int id_categorie){
+        Categorie categorie = null;
+        try{
+
+            String query = "from Categorie where id =: id_categorie";
+            Session session = this.factory.openSession();
+            Query q = session.createQuery(query);
+            q.setParameter("id_categorie", id_categorie);
+
+            categorie = (Categorie) q.uniqueResult();
+
+
+            session.close();
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return categorie;
+    }
 }

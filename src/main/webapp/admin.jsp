@@ -12,6 +12,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.web_j2ee_project.hibernate.entites.Categorie" %>
 <%@ page import="com.example.web_j2ee_project.dao.UserDao" %>
+<%@ page import="com.example.web_j2ee_project.dao.ArticleDao" %>
+<%@ page import="com.example.web_j2ee_project.hibernate.entites.Article" %>
 <%
     Client clientAdmin = (Client)session.getAttribute("current-user");
     if (clientAdmin==null){
@@ -102,6 +104,18 @@
                             <br><br>
                             <h5 class="text-uppercase text-muted">Ajout produit</h5>
                             <p class="mt-2" style="font-size:50%;">Clique ici pour ajouter un nouveau produit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" data-bs-toggle="modal" data-bs-target="#modify-stock">
+                        <div class="card-body text-center">
+                            <div class="container">
+                                <img style="max-width: 125px;" class="img-fluid rounded-circle border" src="img/add-product.png">
+                            </div>
+                            <br><br>
+                            <h5 class="text-uppercase text-muted">Modifier Stock Produit</h5>
+                            <p class="mt-2" style="font-size:50%;">Clique ici pour modifier les stocks d'un produit.</p>
                         </div>
                     </div>
                 </div>
@@ -207,7 +221,7 @@
                         %>
                         <div class="form-group">
                             <select class="form-select" name="utilisateur_id" aria-label="Default select example">
-                                <option selected>Choisir l'utilisateur'</option>
+                                <option selected>Choisir l'utilisateur</option>
                                 <%
                                     for(Client user:listUser){
                                 %>
@@ -242,26 +256,14 @@
                 </div>
                 <div class="modal-body">
                     <form action="OperationAdmin" method="post">
-                        <input type="hidden" name="operation" value="ajoutArticle">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="article_nom" placeholder="Entrer le nom du produit" required><br>
-                        </div>
-                        <div class="form-group">
-                            <textarea type="text" class="form-control" name="article_description" placeholder="Entrer le descriptif du produit" required></textarea><br>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control" name="article_prix" placeholder="Entrer le prix du produit (en €)" required><br>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control" name="article_quantite" placeholder="Entrer la quantité du produit" required><br>
-                        </div>
+                        <input type="hidden" name="operation" value="supprimerCategorie">
                         <%-- Categories --%>
                         <%
                             list = categorieDao.getCategories();
                         %>
                         <div class="form-group">
                             <select class="form-select" name="categorie_id" aria-label="Default select example">
-                                <option selected>Choisir la catégorie du produit</option>
+                                <option selected>Choisir la catégorie à supprimer</option>
                                 <%
                                     for(Categorie categorie:list){
                                 %>
@@ -272,7 +274,7 @@
                             </select><br>
                         </div>
                         <div class="container text-center">
-                            <button class="btn btn-outline-success">Ajouter</button>
+                            <button class="btn btn-outline-success">Supprimer</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -292,38 +294,28 @@
                 </div>
                 <div class="modal-body">
                     <form action="OperationAdmin" method="post">
-                        <input type="hidden" name="operation" value="ajoutArticle">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="article_nom" placeholder="Entrer le nom du produit" required><br>
-                        </div>
-                        <div class="form-group">
-                            <textarea type="text" class="form-control" name="article_description" placeholder="Entrer le descriptif du produit" required></textarea><br>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control" name="article_prix" placeholder="Entrer le prix du produit (en €)" required><br>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control" name="article_quantite" placeholder="Entrer la quantité du produit" required><br>
-                        </div>
-                        <%-- Categories --%>
+                        <input type="hidden" name="operation" value="supprimerArticle">
+
+                        <%-- Produit --%>
                         <%
 
-                            list = categorieDao.getCategories();
+                            ArticleDao articleDao = new ArticleDao(FactoryProvider.getFactory());
+                            List<Article> listArticle = articleDao.getArticles();
                         %>
                         <div class="form-group">
-                            <select class="form-select" name="categorie_id" aria-label="Default select example">
-                                <option selected>Choisir la catégorie du produit</option>
+                            <select class="form-select" name="article_id" aria-label="Default select example">
+                                <option selected>Choisir le produit à supprimer</option>
                                 <%
-                                    for(Categorie categorie:list){
+                                    for(Article article:listArticle){
                                 %>
-                                <option value="<%= categorie.getId()%>"><%= categorie.getTitre()%></option>
+                                <option value="<%= article.getId()%>"><%= article.getNomProduit()%> - Stock : <%= article.getQuantiteProduit()%></option>
                                 <%
                                     }
                                 %>
                             </select><br>
                         </div>
                         <div class="container text-center">
-                            <button class="btn btn-outline-success">Ajouter</button>
+                            <button class="btn btn-outline-success">Supprimer</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -332,6 +324,43 @@
         </div>
     </div>
 
+    <%-- Modifier Stock --%>
+    <!-- Modal -->
+    <div class="modal fade" id="modify-stock" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="OperationAdmin" method="post">
+                        <input type="hidden" name="operation" value="modifierStockArticle">
+                        <%-- Produit --%>
+                        <div class="form-group">
+                            <select class="form-select" name="article_id" aria-label="Default select example">
+                                <option selected>Choisir le produit</option>
+                                <%
+                                    for(Article article:listArticle){
+                                %>
+                                <option value="<%= article.getId()%>"><%= article.getNomProduit()%> - Stock : <%= article.getQuantiteProduit()%></option>
+                                <%
+                                    }
+                                %>
+                            </select><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="quantite" placeholder="Entrer la quantité du produit" required><br>
+                        </div>
+                        <div class="container text-center">
+                            <button class="btn btn-outline-success">Modifier</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
   </body>
 </html>

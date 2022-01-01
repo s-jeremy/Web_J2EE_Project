@@ -1,6 +1,7 @@
 package com.example.web_j2ee_project.dao;
 
 import com.example.web_j2ee_project.hibernate.entites.Article;
+import com.example.web_j2ee_project.hibernate.entites.Categorie;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -72,5 +73,26 @@ public class ArticleDao
             e.printStackTrace();
         }
         return articleList;
+    }
+
+    public Article getArticle(int id_article){
+        Article article = null;
+        try{
+
+            String query = "from Article where id =: id_article";
+            Session session = this.factory.openSession();
+            Query q = session.createQuery(query);
+            q.setParameter("id_article", id_article);
+
+            article = (Article) q.uniqueResult();
+
+
+            session.close();
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return article;
     }
 }
