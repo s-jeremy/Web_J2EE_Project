@@ -62,14 +62,14 @@
           <%
             for(Article article: listArticle){
           %>
-          <div class="card mb-5 mx-4" style="width: 18rem;">
+          <div class="card card-product mb-5 mx-4" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title"><%= article.getNomProduit() %></h5>
               <p class="card-text"><%= Helper.getSomeWords(article.getDescriptionProduit()) %></p>
             </div>
             <div class="card-footer">
               <button class="btn custom-bg text-white">Ajouter</button>
-              <button class="btn btn-outline-primary"><%= article.getPrixProduit() %> &#8364;</button>
+              <button class="btn btn-outline-success"><%= article.getPrixProduit() %> &#8364;</button>
             </div>
           </div>
           <%

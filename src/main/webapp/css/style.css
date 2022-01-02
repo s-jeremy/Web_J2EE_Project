@@ -11,3 +11,8 @@
     background: #00cdff !important;
     border-color: #00cdff !important;
 }
+
+.card-product:hover{
+    background: #e8e3e3;
+    cursor: pointer;
+}
