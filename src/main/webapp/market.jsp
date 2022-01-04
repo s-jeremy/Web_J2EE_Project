@@ -16,6 +16,7 @@
 <body>
 
 <%@include file="components/navbar.jsp"%>
+<%@include file="components/standard_modal.jsp"%>
 
 <div align="center">
   <br><h1><%= "Magasin" %></h1>

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Title</title>
+        <title>Compte</title>
         <%@include file="components/standard_js_css.jsp"%>
     </head>
     <body>
