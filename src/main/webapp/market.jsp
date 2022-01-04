@@ -68,7 +68,7 @@
               <p class="card-text"><%= Helper.getSomeWords(article.getDescriptionProduit()) %></p>
             </div>
             <div class="card-footer">
-              <button class="btn custom-bg text-white">Ajouter</button>
+              <button class="btn custom-bg text-white" onclick="add_product(<%= article.getId() %>, '<%= article.getNomProduit() %>', <%= article.getPrixProduit() %>)">Ajouter</button>
               <button class="btn btn-outline-success"><%= article.getPrixProduit() %> &#8364;</button>
             </div>
           </div>
