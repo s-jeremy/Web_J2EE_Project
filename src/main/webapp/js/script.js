@@ -2,8 +2,9 @@ function add_product(id_produit, nom_produit, prix_produit){
 
     let panier = localStorage.getItem("panier");
     let products = [];
-
+    console.log("test id produit : "+id_produit)
     if(panier == null){
+
         let product = {
             id_produit: id_produit,
             nom_produit: nom_produit,
@@ -16,8 +17,8 @@ function add_product(id_produit, nom_produit, prix_produit){
     }
     else{
         let panierProducts = JSON.parse(panier);
-        let oldProduct = panierProducts.find((item => item.id_produit = id_produit));
-        if(oldProduct){
+        let oldProduct = panierProducts.find((item => item.id_produit == id_produit));
+        if(oldProduct!=undefined){
             oldProduct.quantite_produit = oldProduct.quantite_produit + 1;
             panierProducts.map((item) => {
                 if(item.id_produit == oldProduct.id_produit){
@@ -34,11 +35,13 @@ function add_product(id_produit, nom_produit, prix_produit){
                 prix_produit: prix_produit,
                 quantite_produit: 1
             }
-            products.push(product);
+            panierProducts.push(product);
             localStorage.setItem("panier",JSON.stringify(panierProducts));
             console.log("Le produit est ajouté")
+
         }
     }
+    updatePanier();
 }
 
 
@@ -57,7 +60,7 @@ function updatePanier(){
         $(".cart-items").html(`( ${panier.length} )`);
         let table = `
         <table class='table'>
-        <thread class='thread-light'>
+        <thead class='thread-light'>
             <tr>
                 <th>Produit</th>
                 <th>Prix</th>
@@ -65,17 +68,17 @@ function updatePanier(){
                 <th>Prix total</th>
                 <th>Action</th>
             </tr>
-        </thread>
+        </thead>
         `;
 
         let prixTotal = 0;
         panier.map((item) => {
             table += `
                 <tr>
-                    <td>{item.nom_produit}</td>
-                    <td>{item.prix_produit}</td>
-                    <td>{item.quantite_produit}</td>
-                    <td>{item.quantite_produit*item.prix_produit}</td>
+                    <td>${item.nom_produit}</td>
+                    <td>${item.prix_produit}</td>
+                    <td>${item.quantite_produit}</td>
+                    <td>${item.quantite_produit*item.prix_produit}</td>
                     <td><button class='btn btn-danger btn-sm'>Supprimer</button></td>
                 </tr>
             `
