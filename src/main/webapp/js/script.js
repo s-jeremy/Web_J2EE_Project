@@ -76,9 +76,9 @@ function updatePanier(){
             table += `
                 <tr>
                     <td>${item.nom_produit}</td>
-                    <td>${item.prix_produit}</td>
+                    <td>${item.prix_produit} €</td>
                     <td>${item.quantite_produit}</td>
-                    <td>${item.quantite_produit*item.prix_produit}</td>
+                    <td>${item.quantite_produit*item.prix_produit} €</td>
                     <td><button class='btn btn-danger btn-sm'>Supprimer</button></td>
                 </tr>
             `
@@ -87,8 +87,8 @@ function updatePanier(){
 
         table = table + `
             <tr>
-                <td colspan="5" class="text-right font-weight-bold m-5">
-                    Prix total : ${prixTotal} 
+                <td colspan="5" class="m-5" style="font-weight:bold">
+                    Prix total : ${prixTotal} €
                 </td>
             </tr>
         </table>`
