@@ -59,7 +59,7 @@ function updatePanier(){
         console.log("Le panier est vide !");
         $(".cart-items").html(" (0) ");
         $(".cart-body").html("<h3>Aucun produit dans le panier !</h3>");
-        $(".checkout-btn").addClass('disabled');
+        $(".checkout-btn").attr('disabled',true); //$(".checkout-btn").addClass('disabled');
     }
     else {
         console.log(panier);
@@ -99,6 +99,8 @@ function updatePanier(){
             </tr>
         </table>`
         $(".cart-body").html(table);
+        $(".checkout-btn").attr('disabled',false);
+        console.log('removed');
     }
 }
 
@@ -109,6 +111,10 @@ function deleteProduct(product) {
 
     localStorage.setItem("panier",JSON.stringify(newPanier));
     updatePanier();
+}
+
+function checking(){
+    window.location = "checking.jsp"
 }
 
 $(document).ready(function () {
