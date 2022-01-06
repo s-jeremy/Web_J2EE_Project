@@ -6,6 +6,14 @@
 <%@ page import="com.example.web_j2ee_project.dao.CategorieDao" %>
 <%@ page import="com.example.web_j2ee_project.panier.Helper" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+  Client clientAdmin = (Client)session.getAttribute("current-user");
+  if (clientAdmin==null){
+    session.setAttribute("notification","Vous n'êtes pas identfié !");
+    response.sendRedirect("login.jsp");
+    return;
+  }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +77,7 @@
               <p class="card-text"><%= Helper.getSomeWords(article.getDescriptionProduit()) %></p>
             </div>
             <div class="card-footer">
-              <button class="btn custom-bg text-white" onclick="add_product(<%= article.getId() %>, '<%= article.getNomProduit() %>', <%= article.getPrixProduit() %>)">Ajouter</button>
+              <button class="btn custom-bg text-white" onclick="add_product(<%= article.getId() %>, '<%= article.getNomProduit() %>', <%= article.getPrixProduit() %>, <%= article.getQuantiteProduit() %>)">Ajouter</button>
               <button class="btn btn-outline-success"><%= article.getPrixProduit() %> &#8364;</button>
             </div>
           </div>
