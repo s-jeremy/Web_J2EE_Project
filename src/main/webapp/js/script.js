@@ -79,7 +79,7 @@ function updatePanier(){
                     <td>${item.prix_produit} €</td>
                     <td>${item.quantite_produit}</td>
                     <td>${item.quantite_produit*item.prix_produit} €</td>
-                    <td><button class='btn btn-danger btn-sm'>Supprimer</button></td>
+                    <td><button class='btn btn-danger btn-sm' onclick="deleteProduct(${item.id_produit})">Supprimer</button></td>
                 </tr>
             `
             prixTotal += item.quantite_produit*item.prix_produit;
@@ -94,6 +94,15 @@ function updatePanier(){
         </table>`
         $(".cart-body").html(table);
     }
+}
+
+function deleteProduct(product) {
+
+    let panier = JSON.parse(localStorage.getItem("panier"));
+    let newPanier = panier.filter((item) => item.id_produit != product);
+
+    localStorage.setItem("panier",JSON.stringify(newPanier));
+    updatePanier();
 }
 
 $(document).ready(function () {
