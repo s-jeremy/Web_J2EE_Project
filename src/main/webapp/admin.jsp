@@ -361,6 +361,8 @@
             </div>
         </div>
     </div>
+  
+  <%@include file="components/standard_modal.jsp"%>
 
   </body>
 </html>

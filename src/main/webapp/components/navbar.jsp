@@ -86,7 +86,7 @@
           }else{
         %>
         <li class="nav-item active">
-          <a class="nav-link" href="#"><%= client.getUsername()  %></a>
+          <a class="nav-link" href="<%= client.getRole().equals("admin")?"admin.jsp":"user.jsp"%>"><%= client.getUsername()  %></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="Deconnexion">Deconnexion</a>
