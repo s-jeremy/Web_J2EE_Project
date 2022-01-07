@@ -36,17 +36,17 @@
                             <input type="hidden" name="panier" value="<%=user.getId() %>">
                             <div class="form-group">
                                 <label for="email">Votre adresse</label>
-                                <input value="<%= user.getMail()%>" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Entrer votre email">
+                                <input name="email" value="<%= user.getMail()%>" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Entrer votre email">
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div><br>
                             <div class="form-group">
                                 <label for="name">Votre nom</label>
-                                <input value="<%= user.getUsername()%>" type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Entrer votre nom">
+                                <input name="name" value="<%= user.getUsername()%>" type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Entrer votre nom">
                                 <small id="nameHelp" class="form-text text-muted"></small>
                             </div><br>
                             <div class="form-group">
                                 <label for="address">Votre adresse de livraison</label>
-                                <textarea value="<%= user.getAdresse()%>" class="form-control" id="address" placeholder="Entrer votre adresse de livraison" rows="3"></textarea>
+                                <textarea name="address" value="<%= user.getAdresse()%>" class="form-control" id="address" placeholder="Entrer votre adresse de livraison" rows="3"><%= user.getAdresse()%></textarea>
                             </div><br>
                             <div class="container text-center">
                                 <button class="btn btn-outline-success">Commander</button>
