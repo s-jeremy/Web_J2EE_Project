@@ -86,11 +86,11 @@ public class GenerationFacture extends HttpServlet
             double totalPrice = 0;
             canvas.setFontAndSize(font, 13);
             NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("fr", "FR"));
-
+            Session hibernateSession = FactoryProvider.getFactory().openSession();
+            Transaction transaction = hibernateSession.beginTransaction();
             for (ArticleFacturation articleFacturation : articles)
             {
                 Article article = articleDao.getArticle(articleFacturation.getId());
-                article.setQuantiteProduit(articleFacturation.getQuantiteProduit());
                 canvas.setTextMatrix(125, top);
                 canvas.showText("" + article.getNomProduit());
 
@@ -108,6 +108,11 @@ public class GenerationFacture extends HttpServlet
                 totalPrice += totalLigne;
 
                 top -= 30;
+                System.out.println("Test quantité dispo : "+article.getQuantiteProduit());
+                System.out.println("Test quantité acheter : "+articleFacturation.getQuantiteProduit());
+                article.setQuantiteProduit(article.getQuantiteProduit()-articleFacturation.getQuantiteProduit());
+                hibernateSession.update(article);
+
             }
 
             canvas.setTextMatrix(445, 151);
@@ -125,9 +130,6 @@ public class GenerationFacture extends HttpServlet
             facture.setPdfFile(byteArrayOutputStream.toByteArray());
             facture.setPdfName("Facture-"+LocalDate.now()+".pdf");
 
-            Session hibernateSession = FactoryProvider.getFactory().openSession();
-            Transaction transaction = hibernateSession.beginTransaction();
-
             System.out.println(facture.toString());
 
             int savedFactureId = (int)hibernateSession.save(facture);
@@ -136,6 +138,9 @@ public class GenerationFacture extends HttpServlet
             hibernateSession.close();
             httpSession.setAttribute("factureStatus","Ok");
             response.sendRedirect("user.jsp");
+            transaction.commit();
+            hibernateSession.close();
+
         }
         catch(Exception e){
             System.out.println(e.getMessage());

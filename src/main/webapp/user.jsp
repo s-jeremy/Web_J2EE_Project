@@ -1,4 +1,8 @@
-<%--
+<%@ page import="javax.xml.stream.FactoryConfigurationError" %>
+<%@ page import="com.example.web_j2ee_project.dao.FactureDao" %>
+<%@ page import="com.example.web_j2ee_project.panier.FactoryProvider" %>
+<%@ page import="com.example.web_j2ee_project.hibernate.entites.Facture" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: jeremyselo
   Date: 23/12/2021
@@ -6,8 +10,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%
-    Client clientAdmin = (Client)session.getAttribute("current-user");
-    if (clientAdmin==null){
+    Client clientTest = (Client)session.getAttribute("current-user");
+    if (clientTest==null){
         session.setAttribute("notification","Vous n'êtes pas identfié !");
         response.sendRedirect("login.jsp");
         return;
@@ -19,7 +23,9 @@
         %>
         <script>localStorage.removeItem("panier");</script>
         <%}
-    }%>
+    }
+    FactureDao factureDao = new FactureDao(FactoryProvider.getFactory());
+    List<Facture> listFacture = factureDao.getFactures(clientTest.getId());%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -44,16 +50,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    int i = 1;
+                                    for(Facture facture: listFacture){
+                                %>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>...</td>
-                                    <td>...</td>
+                                    <th scope="row"><%= i %></th>
+                                    <td><%= facture.getDate() %></td>
+                                    <td>
+                                        <form method="post" action="DownloadFacture">
+                                            <input type="hidden" name="file_id" value="<%=facture.getId()%>">
+                                            <button ><%= facture.getPdfName()%></button>
+                                        </form>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>...</td>
-                                    <td>...</td>
-                                </tr>
+                                <%i     +=1;
+                                    }%>
                                 </tbody>
                             </table>
                         </div>
