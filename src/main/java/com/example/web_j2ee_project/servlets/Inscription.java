@@ -56,7 +56,7 @@ public class Inscription extends HttpServlet
 
                         HttpSession httpSession = request.getSession();
                         httpSession.setAttribute("notification","Inscription Réussite !");
-                        response.sendRedirect("register.jsp");
+                        response.sendRedirect("login.jsp");
                         return;
                     }
                     else{

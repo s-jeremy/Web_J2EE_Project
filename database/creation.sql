@@ -13,7 +13,7 @@ CREATE TABLE `client` (
   `role` varchar(60) NOT NULL,
   `bloquer` tinyint DEFAULT '0',
   PRIMARY KEY (`id_client`)
-)
+);
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
@@ -22,7 +22,7 @@ CREATE TABLE `categorie` (
   `description` varchar(1000) NOT NULL,
   PRIMARY KEY (`idCategorie`),
   UNIQUE KEY `titre_UNIQUE` (`titre`)
-)
+);
 
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
@@ -35,7 +35,7 @@ CREATE TABLE `article` (
   PRIMARY KEY (`id_produit`),
   KEY `categorie_idx` (`id_categorie`),
   CONSTRAINT `categorie` FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`idCategorie`)
-)
+);
 
 DROP TABLE IF EXISTS `facture`;
 CREATE TABLE `facture` (
@@ -47,7 +47,7 @@ CREATE TABLE `facture` (
   PRIMARY KEY (`id_facture`),
   KEY `id_user_idx` (`id_user`),
   CONSTRAINT `id_user` FOREIGN KEY (`id_user`) REFERENCES `client` (`id_client`)
-)
+);
 
 INSERT INTO client (username, password, nom, prenom, mail, adresse, role, bloquer) 
 VALUES ('admin','admin','Admin','Admin','admin@admin.fr','None','admin',0);

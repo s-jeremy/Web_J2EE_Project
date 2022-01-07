@@ -60,4 +60,26 @@ public class FactureDao
         return facture;
     }
 
+    public Long getNbFacture(long utilisateur_id){
+        long i = 0;
+        try{
+
+            String query = "SELECT count(*) from Facture where idUser =: utilisateur_id";
+
+            Session session = this.factory.openSession();
+            Query q = session.createQuery(query);
+            q.setParameter("utilisateur_id", utilisateur_id);
+
+            i = (Long) q.uniqueResult();
+
+            session.close();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        i+=1;
+        System.out.println("test i : "+i);
+        return i;
+    }
+
 }

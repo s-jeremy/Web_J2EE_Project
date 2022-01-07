@@ -54,6 +54,9 @@ public class GenerationFacture extends HttpServlet
         ArticleDao articleDao = new ArticleDao(FactoryProvider.getFactory());
         HttpSession httpSession = request.getSession();
         Client user = (Client)httpSession.getAttribute("current-user");
+        String nom = request.getParameter("nom");
+        String email = request.getParameter("e-mail");
+        String addresse = request.getParameter("addresse");
         response.setContentType( "application/pdf" );
         String masterPath = request.getServletContext().getRealPath( "/WEB-INF/ModelFacture.pdf" );
 
@@ -77,12 +80,17 @@ public class GenerationFacture extends HttpServlet
 
             canvas.beginText();
 
-            canvas.setTextMatrix(140, 676);
-            canvas.showText("" + user.getNom());
-            canvas.setTextMatrix(140, 653);
-            canvas.showText("" + user.getPrenom());
+            canvas.setTextMatrix(143, 675);
+            canvas.showText("" + nom);
 
-            int top = 445;
+            canvas.setTextMatrix(185, 653);
+            canvas.showText("" + addresse);
+
+            canvas.setTextMatrix(127, 630);
+            canvas.showText("" + email);
+
+
+            int top = 420;
             double totalPrice = 0;
             canvas.setFontAndSize(font, 13);
             NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("fr", "FR"));
@@ -91,31 +99,30 @@ public class GenerationFacture extends HttpServlet
             for (ArticleFacturation articleFacturation : articles)
             {
                 Article article = articleDao.getArticle(articleFacturation.getId());
-                canvas.setTextMatrix(125, top);
+                canvas.setTextMatrix(100, top);
                 canvas.showText("" + article.getNomProduit());
 
-                canvas.setTextMatrix(260, top);
+                canvas.setTextMatrix(250, top);
                 canvas.showText(""+article.getPrixProduit());
 
-                canvas.setTextMatrix(350, top);
-                canvas.showText(""+article.getQuantiteProduit());
+                canvas.setTextMatrix(345, top);
+                canvas.showText(""+articleFacturation.getQuantiteProduit());
 
-                double totalLigne = article.getQuantiteProduit()*article.getPrixProduit();
-                canvas.setTextMatrix(450, top);
+                double totalLigne = articleFacturation.getQuantiteProduit()*article.getPrixProduit();
+                canvas.setTextMatrix(445, top);
                 canvas.showText(""+totalLigne);
 
 
                 totalPrice += totalLigne;
 
                 top -= 30;
-                System.out.println("Test quantité dispo : "+article.getQuantiteProduit());
-                System.out.println("Test quantité acheter : "+articleFacturation.getQuantiteProduit());
+
                 article.setQuantiteProduit(article.getQuantiteProduit()-articleFacturation.getQuantiteProduit());
                 hibernateSession.update(article);
 
             }
 
-            canvas.setTextMatrix(445, 151);
+            canvas.setTextMatrix(443, 155);
             canvas.showText(formatter.format(totalPrice)+" Euro");
 
             canvas.endText();
@@ -126,9 +133,10 @@ public class GenerationFacture extends HttpServlet
             facture.setIdUser(user.getId());
 
             LocalDate date = LocalDate.now();
-            facture.setDate(LocalDate.of(date.getYear(),date.getMonth(),date.getDayOfMonth()));
+            long i = factureDao.getNbFacture(user.getId());
+            facture.setDate(date);
             facture.setPdfFile(byteArrayOutputStream.toByteArray());
-            facture.setPdfName("Facture-"+LocalDate.now()+".pdf");
+            facture.setPdfName("Facture-n°"+i+"-"+LocalDate.now()+".pdf");
 
             System.out.println(facture.toString());
 
