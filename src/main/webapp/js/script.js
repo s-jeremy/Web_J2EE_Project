@@ -4,7 +4,7 @@ function add_product(id_produit, nom_produit, prix_produit, quantiteDispo_produi
     let products = [];
 
     if (quantiteDispo_produit==0){
-        console.log("Le produit n'est pas disponible !")
+        console.log("Le produit n'est pas disponible!")
     }else {
         if (panier == null) {
             let product = {
@@ -16,6 +16,7 @@ function add_product(id_produit, nom_produit, prix_produit, quantiteDispo_produi
             products.push(product);
             localStorage.setItem("panier", JSON.stringify(products));
             console.log("Le produit est ajouté pour la première fois!");
+            showToast("Le produit a été ajouté au panier!");
         } else {
             let panierProducts = JSON.parse(panier);
             let oldProduct = panierProducts.find((item => item.id_produit == id_produit));
@@ -28,10 +29,12 @@ function add_product(id_produit, nom_produit, prix_produit, quantiteDispo_produi
                         }
                     })
                     localStorage.setItem("panier", JSON.stringify(panierProducts));
-                    console.log("La quantité de produit est augmenté !");
+                    console.log("La quantité de produit est augmenté!");
+                    showToast( "La quantité de produit " + oldProduct.nom_produit + " est augmenté!  Quantité = " + oldProduct.quantite_produit);
                 }
                 else{
-                    console.log("Stock de disponibilité maximale atteint !");
+                    console.log("Stock de disponibilité maximale atteint!");
+                    showToast("Stock de disponibilité maximale atteint!");
                 }
             } else {
                 let product = {
@@ -42,7 +45,8 @@ function add_product(id_produit, nom_produit, prix_produit, quantiteDispo_produi
                 }
                 panierProducts.push(product);
                 localStorage.setItem("panier", JSON.stringify(panierProducts));
-                console.log("Le produit est ajouté")
+                console.log("Le produit est ajouté!")
+                showToast("Le produit est ajouté au panier!");
 
             }
         }
@@ -111,12 +115,21 @@ function deleteProduct(product) {
 
     localStorage.setItem("panier",JSON.stringify(newPanier));
     updatePanier();
-}
-
-function checking(){
-    window.location = "checking.jsp"
+    showToast("Le produit est supprimé du panier!");
 }
 
 $(document).ready(function () {
     updatePanier();
 })
+
+function showToast(content){
+    $("#toast").addClass("display");
+    $("#toast").html(content);
+    setTimeout(() => {
+        $("#toast").removeClass("display");
+    }, 2000);
+}
+
+function checking(){
+    window.location = "checking.jsp";
+}
