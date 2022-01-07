@@ -50,7 +50,7 @@
                             </div><br>
                             <div class="container text-center">
                                 <button class="btn btn-outline-success">Commander</button>
-                                <button class="btn btn-outline-primary checkout-btn"><a href="market.jsp" class="text-blue">Continuer vos achats</a></button>
+                                <button class="btn btn-outline-primary checkout-btn"><a href="market.jsp" class="text-blue" style="text-decoration:none">Continuer vos achats</a></button>
                             </div>
                         </form>
                     </div>
