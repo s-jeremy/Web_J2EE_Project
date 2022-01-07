@@ -83,6 +83,9 @@
                         </div>
                     </div>
                 </div>
+
+            </div>
+            <div class="row">
                 <div class="col">
                     <div class="card" data-bs-toggle="modal" data-bs-target="#view-product">
                         <div class="card-body text-center">
@@ -111,7 +114,7 @@
                     <div class="card" data-bs-toggle="modal" data-bs-target="#modify-stock">
                         <div class="card-body text-center">
                             <div class="container">
-                                <img style="max-width: 125px;" class="img-fluid rounded-circle border" src="img/add-product.png">
+                                <img style="max-width: 125px;" class="img-fluid rounded-circle border" src="img/edit.png">
                             </div>
                             <br><br>
                             <h5 class="text-uppercase text-muted">Modifier Stock Produit</h5>
@@ -208,7 +211,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations au sujet des utilisateurs</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -251,7 +254,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations des catégories</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -289,7 +292,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations des produits</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -330,7 +333,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations du produit</h5>
+                    <h5 class="modal-title" class="exampleModalLabel1">Remplir les informations des stocks</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
