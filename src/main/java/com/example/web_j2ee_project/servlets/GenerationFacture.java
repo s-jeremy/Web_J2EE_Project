@@ -27,13 +27,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import jdk.vm.ci.meta.Local;
+import org.apache.commons.text.StringEscapeUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.json.*;
@@ -58,8 +59,9 @@ public class GenerationFacture extends HttpServlet
         Client user = (Client)httpSession.getAttribute("current-user");
         response.setContentType( "application/pdf" );
         String masterPath = request.getServletContext().getRealPath( "/WEB-INF/ModelFacture.pdf" );
-        String jsonString = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 
+        String jsonString = StringEscapeUtils.unescapeHtml4(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+        jsonString = java.net.URLDecoder.decode(jsonString, StandardCharsets.UTF_8);
         JSONObject obj = new JSONObject(jsonString);
         ObjectMapper mapper = new ObjectMapper();
         ArticleFacturation[] articles = mapper.readValue(obj.get("panier").toString(), ArticleFacturation[].class);

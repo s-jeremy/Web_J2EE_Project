@@ -31,7 +31,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="text-center mb-5">Vos coordonnées</h3>
-                        <form action="#!">
+                        <form action="GenerationFacture" method="post">
+                            <input type="hidden" id="achatPanier" name="panier" value="placeholder_panier">
+                            <input type="hidden" name="panier" value="<%=user.getId() %>">
                             <div class="form-group">
                                 <label for="email">Votre adresse</label>
                                 <input value="<%= user.getMail()%>" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Entrer votre email">
@@ -57,7 +59,10 @@
         </div>
     </div>
 
-
+    <script type="text/javascript">
+        var s = document.getElementById("achatPanier")
+        s.value = localStorage.getItem("panier")
+    </script>
     <%@include file="components/standard_modal.jsp"%>
 
 </body>
