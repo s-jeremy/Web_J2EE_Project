@@ -17,8 +17,8 @@ Dans le cadre de notre **cursus d'ingénieur ESEO**, nous avons du développer u
 ## :memo: Application Web en J2EE
 
 ## Captures d'écran
-      
-> *En cours...*
+
+![image info](./homepage.png)
 
 ## Cahier des charges
 
