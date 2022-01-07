@@ -3,10 +3,9 @@ package com.example.web_j2ee_project.hibernate.entites;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
-@Table(name = "facture", indexes = {
-        @Index(name = "id_user_idx", columnList = "id_user")
-})
+@Table(name = "facture")
 @Entity
 public class Facture
 {
@@ -15,7 +14,7 @@ public class Facture
     @Column(name = "id_facture", nullable = false)
     private Integer id;
 
-    @JoinColumn(name = "id_user", nullable = false)
+    @Column(name = "id_user", nullable = false, columnDefinition = "int default 0")
     private Integer idUser;
 
     @Column(name = "date", nullable = false)
@@ -62,5 +61,14 @@ public class Facture
     public void setId(Integer id)
     {
         this.id = id;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Facture{" +
+                "id=" + id +
+                ", idUser=" + idUser +
+                ", date=" + date;
     }
 }

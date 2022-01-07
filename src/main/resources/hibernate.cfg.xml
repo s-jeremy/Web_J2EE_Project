@@ -14,5 +14,6 @@
         <mapping class="com.example.web_j2ee_project.hibernate.entites.Client"/>
         <mapping class="com.example.web_j2ee_project.hibernate.entites.Article"/>
         <mapping class="com.example.web_j2ee_project.hibernate.entites.Categorie"/>
+        <mapping class="com.example.web_j2ee_project.hibernate.entites.Facture"/>
     </session-factory>
 </hibernate-configuration>

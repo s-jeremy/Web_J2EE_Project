@@ -60,11 +60,12 @@ public class GenerationFacture extends HttpServlet
         response.setContentType( "application/pdf" );
         String masterPath = request.getServletContext().getRealPath( "/WEB-INF/ModelFacture.pdf" );
 
-        String jsonString = StringEscapeUtils.unescapeHtml4(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
-        jsonString = java.net.URLDecoder.decode(jsonString, StandardCharsets.UTF_8);
-        JSONObject obj = new JSONObject(jsonString);
+        String panier = request.getParameter("panier");
+        panier = java.net.URLDecoder.decode(panier, StandardCharsets.UTF_8);
+        System.out.println("test panier : "+panier);
+        System.out.println("test id_user du panier : "+user.getId());
         ObjectMapper mapper = new ObjectMapper();
-        ArticleFacturation[] articles = mapper.readValue(obj.get("panier").toString(), ArticleFacturation[].class);
+        ArticleFacturation[] articles = mapper.readValue(panier, ArticleFacturation[].class);
         System.out.println(Arrays.toString(articles));
         try (PdfReader reader = new PdfReader( masterPath );
              PdfWriter writer = new PdfWriter( byteArrayOutputStream );
@@ -129,10 +130,16 @@ public class GenerationFacture extends HttpServlet
             Session hibernateSession = FactoryProvider.getFactory().openSession();
             Transaction transaction = hibernateSession.beginTransaction();
 
+            System.out.println(facture.toString());
+
             int savedFactureId = (int)hibernateSession.save(facture);
 
             transaction.commit();
             hibernateSession.close();
+            response.sendRedirect("user.jsp");
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }
