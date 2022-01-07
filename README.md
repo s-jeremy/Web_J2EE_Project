@@ -8,7 +8,7 @@
 
 ###### tags: `Projet(en cours)`
 
-> *Dernière mise à jour le Vendredi 31 Décembre 2021*
+> *Dernière mise à jour le Vendredi 7 Janvier 2022*
 
 Dans le cadre de notre **cursus d'ingénieur ESEO**, nous avons du développer une application de vente en ligne (version simplifiée) au cours de la matière **Projet Architecture Web et plafeforme Java/Jakarta EE**.
 
@@ -47,15 +47,15 @@ informations suivantes à son inscription :
   - Prénom
   - Courriel
   - Adresse de livraison
-- [ ] Une fois inscrit et connecté, le client pourra naviguer sur le site en ligne afin de
+- [x] Une fois inscrit et connecté, le client pourra naviguer sur le site en ligne afin de
 sélectionner des articles pour les commander. Il ne pourra valider sa commande que si
 les articles sélectionnés sont bien en nombre suffisant dans le stock.
-- [ ] Une facture sera produite par l’application (détails des articles commandés, montant
+- [x] Une facture sera produite par l’application (détails des articles commandés, montant
 total, …) lors d’une commande, mais vous vous affranchirez de la partie paiement.
 
-- [ ] Sur son espace (lorsqu’il est connecté) le client pourra visualiser l’historique de ses
+- [x] Sur son espace (lorsqu’il est connecté) le client pourra visualiser l’historique de ses
 commandes.
-- [ ] Votre application permettra aussi à un administrateur de gérer la boutique en ligne.
+- [x] Votre application permettra aussi à un administrateur de gérer la boutique en ligne.
 Lorsqu’ils seront connectés ils pourront a minima faire les actions suivantes :
   - Ajouter /supprimer des nouveaux articles
   - Modifier les quantités d’un article enregistré
