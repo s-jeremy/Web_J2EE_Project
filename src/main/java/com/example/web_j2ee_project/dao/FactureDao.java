@@ -18,6 +18,12 @@ public class FactureDao
         this.factory = factory;
     }
 
+    /**
+     * Retourne toutes les factures associé à l'id de l'utilisateur fournit
+     *
+     * @param id_utilisateur id de l'utilisateur dont on souhaite récupéré l'id
+     * @return list de Facture de l'utilisateur
+     */
     public List<Facture> getFactures(int id_utilisateur){
         List<Facture> factureList = null;
         try{
@@ -40,6 +46,12 @@ public class FactureDao
         return factureList;
     }
 
+    /**
+     * Recherche la facture associé à l'id fournit
+     *
+     * @param file_id l'id de la facture que l'on souhaite récupéré
+     * @return retourne la facture associé à l'id
+     */
     public Facture getFacture(int file_id){
         Facture facture = null;
         try{
@@ -60,6 +72,12 @@ public class FactureDao
         return facture;
     }
 
+    /**
+     * Recherche le nombre de facture associé à l'utilisateur +1
+     *
+     * @param utilisateur_id l'id de l'utilisateur sur lequel est effectuer la recherche
+     * @return retourne un long contenant le nombre de facture associé à l'utilisateur +1
+     */
     public Long getNbFacture(long utilisateur_id){
         long i = 0;
         try{

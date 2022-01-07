@@ -17,6 +17,12 @@ public class ArticleDao
         this.factory = factory;
     }
 
+    /**
+     * Recherche dans la "article" si le produit existe
+     *
+     * @param nomArticle Nom de l'article à rechercher
+     * @return retourne un boolean true si l'article existe dans la base
+     */
     public boolean checkIfExist(String nomArticle){
         boolean exist = true;
         try{
@@ -36,6 +42,11 @@ public class ArticleDao
         return exist;
     }
 
+    /**
+     * Récupération de tous les articles présent dans la table "article"
+     *
+     * @return retourne une List d'Articles
+     */
     public List<Article> getArticles(){
         List<Article> articleList = null;
         try{
@@ -56,6 +67,12 @@ public class ArticleDao
         return articleList;
     }
 
+    /**
+     * Recherche dans la "article" tous les articles appartenant à la catégorie données
+     *
+     * @param categorie_id l'id de la catégorie à rechercher dans la base
+     * @return retourne une List d'Article
+     */
     public List<Article> getArticlesCategorie(int categorie_id){
         List<Article> articleList = null;
         try{
@@ -75,6 +92,12 @@ public class ArticleDao
         return articleList;
     }
 
+    /**
+     * Cherche et retourne un article dans la base
+     *
+     * @param id_article Id de l'article à rechercher dans la base
+     * @return retourne l'article trouver dans la base
+     */
     public Article getArticle(int id_article){
         Article article = null;
         try{

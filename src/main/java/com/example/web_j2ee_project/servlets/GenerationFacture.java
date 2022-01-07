@@ -62,8 +62,6 @@ public class GenerationFacture extends HttpServlet
 
         String panier = request.getParameter("panier");
         panier = java.net.URLDecoder.decode(panier, StandardCharsets.UTF_8);
-        System.out.println("test panier : "+panier);
-        System.out.println("test id_user du panier : "+user.getId());
         ObjectMapper mapper = new ObjectMapper();
         ArticleFacturation[] articles = mapper.readValue(panier, ArticleFacturation[].class);
         System.out.println(Arrays.toString(articles));

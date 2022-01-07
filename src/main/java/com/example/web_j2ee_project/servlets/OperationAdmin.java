@@ -33,12 +33,13 @@ public class OperationAdmin extends HttpServlet
             throws ServletException, IOException{
         processRequest(request,response);
     }
-
+    //Servlet gérant toutes les fonctionnalités de l'admin
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
         try(PrintWriter out= response.getWriter()){
             try{
+                //Récupération de l'opération à réalisé
                 String operation = request.getParameter("operation");
                 //
                 //Partie ajouter une catégorie !
@@ -52,6 +53,7 @@ public class OperationAdmin extends HttpServlet
                     if (categorie.isComplete()){
                         Session hibernateSession = FactoryProvider.getFactory().openSession();
                         Transaction transaction = hibernateSession.beginTransaction();
+                        //Paramètres OK + la catégorie n'existe pas, on la crée
                         if (!categorieDao.checkIfExist(categorie_titre)){
                             int savedCategorieId = (int)hibernateSession.save(categorie);
 
@@ -92,6 +94,7 @@ public class OperationAdmin extends HttpServlet
                     if (article.isComplete()){
                         Session hibernateSession = FactoryProvider.getFactory().openSession();
                         Transaction transaction = hibernateSession.beginTransaction();
+                        //Si produit n'existe pas, on le crée
                         if (!articleDao.checkIfExist(article_nom)){
                             int savedArticleId = (int)hibernateSession.save(article);
 
@@ -116,7 +119,7 @@ public class OperationAdmin extends HttpServlet
                     }
                 }
                 //
-                //Partie bloquer utilisateur !
+                //Partie bloquer et débloquer utilisateur !
                 //
                 if (operation.trim().equals("bloquerUtilisateur")){
                     int utilisateur_id = Integer.valueOf(request.getParameter("utilisateur_id"));
@@ -128,7 +131,7 @@ public class OperationAdmin extends HttpServlet
 
                         Session hibernateSession = FactoryProvider.getFactory().openSession();
                         Transaction transaction = hibernateSession.beginTransaction();
-
+                        //Si l'utilsateur est bloquer, on le débloque
                         if (utilisateur.getBloquer() == 1)
                         {
                             utilisateur.setBloquer(0);
@@ -140,6 +143,7 @@ public class OperationAdmin extends HttpServlet
                             response.sendRedirect("admin.jsp");
                             return;
                         }
+                        //Si l'utilisateur n'est pas bloquer, on le bloque
                         else
                         {
                             utilisateur.setBloquer(1);
@@ -171,7 +175,7 @@ public class OperationAdmin extends HttpServlet
 
                     Session hibernateSession = FactoryProvider.getFactory().openSession();
                     Transaction transaction = hibernateSession.beginTransaction();
-
+                    //Si on arrive a trouver la catégorie en BDD, on la supprime
                     if (categorie!=null)
                     {
                         hibernateSession.delete(categorie);
@@ -198,7 +202,7 @@ public class OperationAdmin extends HttpServlet
 
                     Session hibernateSession = FactoryProvider.getFactory().openSession();
                     Transaction transaction = hibernateSession.beginTransaction();
-
+                    //Si on arrive a trouver la catégorieun produit en BDD, on le supprime
                     if (article!=null)
                     {
                         hibernateSession.delete(article);
@@ -226,7 +230,7 @@ public class OperationAdmin extends HttpServlet
 
                     Session hibernateSession = FactoryProvider.getFactory().openSession();
                     Transaction transaction = hibernateSession.beginTransaction();
-
+                    //Article trouvé, on lui modifie sa quantité
                     if (article!=null)
                     {
                         article.setQuantiteProduit(quantite);

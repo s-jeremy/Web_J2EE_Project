@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.example.web_j2ee_project.dao"},{"l":"com.example.web_j2ee_project.hibernate.entites"},{"l":"com.example.web_j2ee_project.panier"},{"l":"com.example.web_j2ee_project.servlets"}]

@@ -25,7 +25,9 @@ public class Deconnexion extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         try(PrintWriter out= response.getWriter()){
                 HttpSession httpSession = request.getSession();
+                //Suppression du cache contenant les informations utilisateur dans la session
                 httpSession.removeAttribute("current-user");
+                //Définition Flag de suppression du panier pour le JSP
                 httpSession.setAttribute("emptyCart","Ok");
                 response.sendRedirect("login.jsp");
         }

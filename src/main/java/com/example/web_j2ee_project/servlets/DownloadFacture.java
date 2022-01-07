@@ -19,7 +19,6 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "DownloadFacture", urlPatterns = {"/DownloadFacture"})
 public class DownloadFacture extends HttpServlet
-
 {
 
     @Override
@@ -30,15 +29,19 @@ public class DownloadFacture extends HttpServlet
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException{
+        //Définition de l'action de téléchargement d'un fichier binaire
+        //Le fichier pdf est stocker en binaire dans la BDD
         response.setContentType("application/force-download");
         response.setHeader("Content-Transfer-Encoding", "binary");
-
+        //Récupération de l'id du fichier à télécharger
         int file_id = Integer.valueOf(request.getParameter("file_id"));
-        System.out.println("Test file_id "+file_id);
         try{
+            //Récupération de la facture via l'id
             FactureDao factureDao = new FactureDao(FactoryProvider.getFactory());
             Facture facture = factureDao.getFacture(file_id);
+            //Définition du nom du fichier lors du téléchargement
             response.setHeader("Content-Disposition","attachment; filename="+facture.getPdfName());
+            //Ecriture du fichier dans la réponse et lancement du téléchargement
             response.getOutputStream().write(facture.getPdfFile());
             response.setContentLength(facture.getPdfFile().length);
             response.getOutputStream().write(facture.getPdfFile());

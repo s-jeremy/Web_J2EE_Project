@@ -15,6 +15,12 @@ public class UserDao {
         this.factory = factory;
     }
 
+    /**
+     * Cherche si l'utilisateur existe dans la base
+     *
+     * @param username Le nom de l'utilisateur à rechercher
+     * @return retourne un boolean true si l'utilisateur existe dans la base
+     */
     public boolean checkIfUserExist(String username){
         boolean exist = true;
         try{
@@ -36,6 +42,13 @@ public class UserDao {
         return exist;
     }
 
+    /**
+     * Fonction d'identification, recherche si l'utilisateur et le mot de passe associé sont présent
+     * dans la base
+     * @param username identifiant de l'utilisateur
+     * @param pw mot de passe de l'utilisateur
+     * @return retourne les informations associé à l'utilisateur si il existe avec le bon mot de passe associé
+     */
     public Client getUserByEmailPw(String username, String pw){
         Client utilisateur = null;
         try{
@@ -56,6 +69,11 @@ public class UserDao {
         return utilisateur;
     }
 
+    /**
+     * Retourne la list de tous les utilisateurs de la base
+     *
+     * @return retourne une list d'objet Client contenant tous les utilisateur de la base
+     */
     public List<Client> getUsers(){
         List<Client> list = null;
         try{
@@ -74,6 +92,12 @@ public class UserDao {
         return list;
     }
 
+    /**
+     * Retourne l'utilisateur associé à l'id fournit
+     *
+     * @param id_utilisateur référence l'id de l'utilisateur à retourner
+     * @return retourne l'utilisateur associé à l'id
+     */
     public Client getUserById(int id_utilisateur){
         Client utilisateur = null;
         try{

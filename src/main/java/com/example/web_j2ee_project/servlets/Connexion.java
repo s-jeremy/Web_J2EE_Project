@@ -27,21 +27,21 @@ public class Connexion extends HttpServlet
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try(PrintWriter out= response.getWriter()){
+            //Récupération de l'identifiant et du mot de passe
             String username = request.getParameter("user_name");
             String user_password = request.getParameter("user_password");
-            System.out.println(username);
-            System.out.println(user_password);
+            //Vérification de l'utilisateur et de son mdp dans la base
             UserDao userDao = new UserDao(FactoryProvider.getFactory());
             Client utilisateur = userDao.getUserByEmailPw(username,user_password);
-            System.out.println(utilisateur);
             HttpSession httpSession = request.getSession();
 
             if(utilisateur == null){
-                //out.println("<h1> Problème </h1>");
+                //Si l'identification à échoué, alors retour et msg erreur
                 httpSession.setAttribute("notification","Invalide, essaye un autre");
                 response.sendRedirect("login.jsp");
                 return;
             } else{
+                //Si User Bloqué, alors notification et retour
                 if (utilisateur.getBloquer()==1){
                     httpSession.setAttribute("notification","Cette utilisateur est bloquer !");
                     response.sendRedirect("login.jsp");
@@ -49,7 +49,7 @@ public class Connexion extends HttpServlet
                 }
                 out.println("<h1> Welcome " + utilisateur.getUsername() + " </h1>");
 
-                // Login.jsp
+                // Identification OK : redirection vers page admin ou user selon role
                 httpSession.setAttribute("current-user", utilisateur);
                 if(utilisateur.getRole().equals("admin")){
                     response.sendRedirect("admin.jsp");

@@ -31,6 +31,7 @@ public class Inscription extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         try(PrintWriter out= response.getWriter()){
             try{
+                //Récupération des paramètres du JSP
                 String user_username = request.getParameter("user_name");
                 String user_email = request.getParameter("user_email");
                 String user_password = request.getParameter("user_password");
@@ -38,13 +39,14 @@ public class Inscription extends HttpServlet
                 String user_name = request.getParameter("user_name");
                 String user_surname = request.getParameter("user_surname");
                 String user_role = "user";
+                //Bloquer=0=Débloquer, Bloquer=1=Bloquer
                 int user_bloquer = 0;
-
+                //Vérification si l'user est complet, sinon erreur avec notification
                 Client user = new Client(user_username, user_password, user_surname, user_name,
                         user_email, user_address, user_role, user_bloquer);
                 if (user.isComplete()){
                     UserDao userDao = new UserDao(FactoryProvider.getFactory());
-
+                    //Si paramètres OK + User n'existe pas, on le crée
                     if (!userDao.checkIfUserExist(user_username)){
                         Session hibernateSession = FactoryProvider.getFactory().openSession();
                         Transaction transaction = hibernateSession.beginTransaction();

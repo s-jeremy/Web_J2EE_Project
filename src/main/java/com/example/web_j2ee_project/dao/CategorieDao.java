@@ -16,6 +16,12 @@ public class CategorieDao
         this.factory = factory;
     }
 
+    /**
+     * Cherche si la catégorie existe dans la base
+     *
+     * @param category_titre Le nom de la catégorie à rechercher
+     * @return retourne un boolean true si la catégorie existe dans la base
+     */
     public boolean checkIfExist(String category_titre){
         boolean exist = true;
         try{
@@ -35,6 +41,11 @@ public class CategorieDao
         return exist;
     }
 
+    /**
+     * Récupération d'une list contenant toutes les catégories dans la base
+     *
+     * @return retourne une list de Catégorie contenant toutes les catégories dans la base
+     */
     public List<Categorie> getCategories(){
         List<Categorie> categorieList = null;
         try{
@@ -55,6 +66,12 @@ public class CategorieDao
         return categorieList;
     }
 
+    /**
+     * Retourne la catégorié associé à l'id fournit
+     *
+     * @param id_categorie référence l'id de la catégorie à retourner
+     * @return retourne la catégorie associé à l'id
+     */
     public Categorie getCategorie(int id_categorie){
         Categorie categorie = null;
         try{
