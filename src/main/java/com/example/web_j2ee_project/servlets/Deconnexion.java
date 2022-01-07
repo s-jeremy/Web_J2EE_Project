@@ -26,6 +26,7 @@ public class Deconnexion extends HttpServlet
         try(PrintWriter out= response.getWriter()){
                 HttpSession httpSession = request.getSession();
                 httpSession.removeAttribute("current-user");
+                httpSession.setAttribute("emptyCart","Ok");
                 response.sendRedirect("login.jsp");
         }
     }

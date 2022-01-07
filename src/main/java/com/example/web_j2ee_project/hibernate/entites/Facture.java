@@ -20,6 +20,9 @@ public class Facture
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
+    @Column(name = "pdf_name", nullable = false)
+    private String pdfName;
+
     @Column(name = "pdf_file", nullable = false)
     private byte[] pdfFile;
 
@@ -63,12 +66,23 @@ public class Facture
         this.id = id;
     }
 
+    public String getPdfName()
+    {
+        return pdfName;
+    }
+
+    public void setPdfName(String pdfName)
+    {
+        this.pdfName = pdfName;
+    }
+
     @Override
     public String toString()
     {
         return "Facture{" +
                 "id=" + id +
                 ", idUser=" + idUser +
-                ", date=" + date;
+                ", date=" + date +
+                ", pdfName=" + pdfName;
     }
 }

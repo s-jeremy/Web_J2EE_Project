@@ -32,12 +32,9 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.json.*;
 
 @WebServlet(name = "GenerationFacture", urlPatterns = {"/GenerationFacture"})
 public class GenerationFacture extends HttpServlet
@@ -126,6 +123,7 @@ public class GenerationFacture extends HttpServlet
             LocalDate date = LocalDate.now();
             facture.setDate(LocalDate.of(date.getYear(),date.getMonth(),date.getDayOfMonth()));
             facture.setPdfFile(byteArrayOutputStream.toByteArray());
+            facture.setPdfName("Facture-"+LocalDate.now()+".pdf");
 
             Session hibernateSession = FactoryProvider.getFactory().openSession();
             Transaction transaction = hibernateSession.beginTransaction();
@@ -136,6 +134,7 @@ public class GenerationFacture extends HttpServlet
 
             transaction.commit();
             hibernateSession.close();
+            httpSession.setAttribute("factureStatus","Ok");
             response.sendRedirect("user.jsp");
         }
         catch(Exception e){
