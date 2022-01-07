@@ -55,7 +55,7 @@ public class Connexion extends HttpServlet
                     response.sendRedirect("admin.jsp");
                 }
                 else if(utilisateur.getRole().equals("user")){
-                    response.sendRedirect("user.jsp");
+                    response.sendRedirect("market.jsp");
                 }
                 else{
                     out.println("Aucun rôle identifié");
