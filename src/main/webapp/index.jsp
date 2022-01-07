@@ -8,7 +8,7 @@
 <body>
 
     <%@include file="components/navbar.jsp"%>
-
+    <%@include file="components/standard_modal.jsp"%>
     <div align="center">
         <br><h1><%= "E-phone Market" %></h1>
         <br><p>Site de e-commerce sur la vente de téléphones. Inscrivez-vous et/ou connectez-vous afin d'acheter votre futur téléphone.</p>

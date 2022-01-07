@@ -35,6 +35,7 @@
     </head>
     <body>
     <%@include file="components/navbar.jsp"%>
+    <%@include file="components/standard_modal.jsp"%>
         <div class="container">
             <div class="row mt-4">
                 <div class="col-md-6 offset-md-3">

@@ -5,6 +5,7 @@ function add_product(id_produit, nom_produit, prix_produit, quantiteDispo_produi
 
     if (quantiteDispo_produit==0){
         console.log("Le produit n'est pas disponible!")
+        showToast("Le produit n'est pas disponible!");
     }else {
         if (panier == null) {
             let product = {
@@ -59,14 +60,13 @@ function updatePanier(){
 
     let panierToString = localStorage.getItem("panier");
     let panier = JSON.parse(panierToString);
-    if(panier == null || panier.length == null){
+    if(panier == null || panier.length == 0){
         console.log("Le panier est vide !");
         $(".cart-items").html(" (0) ");
         $(".cart-body").html("<h3>Aucun produit dans le panier !</h3>");
         $(".checkout-btn").attr('disabled',true); //$(".checkout-btn").addClass('disabled');
     }
     else {
-        console.log(panier);
         $(".cart-items").html(`( ${panier.length} )`);
         let table = `
         <table class='table'>
@@ -114,8 +114,9 @@ function deleteProduct(product) {
     let newPanier = panier.filter((item) => item.id_produit != product);
 
     localStorage.setItem("panier",JSON.stringify(newPanier));
+
     updatePanier();
-    showToast("Le produit est supprimé du panier!");
+    showToast("Produit retirer !");
 }
 
 $(document).ready(function () {
@@ -131,5 +132,9 @@ function showToast(content){
 }
 
 function checking(){
-    window.location = "checking.jsp";
+    let panierToString = localStorage.getItem("panier");
+    let panier = JSON.parse(panierToString);
+    if (panier!=null) {
+        window.location = "checking.jsp";
+    }
 }
