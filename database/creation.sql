@@ -50,4 +50,10 @@ CREATE TABLE `facture` (
 );
 
 INSERT INTO client (username, password, nom, prenom, mail, adresse, role, bloquer) 
-VALUES ('admin','admin','Admin','Admin','admin@admin.fr','None','admin',0);
+VALUES ('admin','password','Admin','Admin','admin@admin.fr','None','admin',0);
+
+INSERT INTO client (username, password, nom, prenom, mail, adresse, role, bloquer)
+VALUES ('client','password','Fourcade','Martin','martin@fourcade.fr','Chamonix','user',0);
+
+INSERT INTO client (username, password, nom, prenom, mail, adresse, role, bloquer)
+VALUES ('clientBloque','password','Bo','Johannes','johannes@bo.fr','Angers','user',1);

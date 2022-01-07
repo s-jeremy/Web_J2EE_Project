@@ -139,19 +139,25 @@ public class OperationAdmin extends HttpServlet
                             transaction.commit();
                             hibernateSession.close();
                             HttpSession httpSession = request.getSession();
-                            httpSession.setAttribute("notification", "L'utilisateur à bien était débloquer !");
+                            httpSession.setAttribute("notification", "L'utilisateur a bien était débloqué !");
                             response.sendRedirect("admin.jsp");
                             return;
                         }
                         //Si l'utilisateur n'est pas bloquer, on le bloque
                         else
                         {
+                            if(utilisateur.getId() == 1){
+                                HttpSession httpSession = request.getSession();
+                                httpSession.setAttribute("notification", "L'admin ne peut pas être bloqué !");
+                                response.sendRedirect("admin.jsp");
+                                return;
+                            }
                             utilisateur.setBloquer(1);
                             hibernateSession.update(utilisateur);
                             transaction.commit();
                             hibernateSession.close();
                             HttpSession httpSession = request.getSession();
-                            httpSession.setAttribute("notification", "L'utilisateur à bien était bloquer !");
+                            httpSession.setAttribute("notification", "L'utilisateur a bien était bloqué !");
                             response.sendRedirect("admin.jsp");
                             return;
                         }
@@ -182,7 +188,7 @@ public class OperationAdmin extends HttpServlet
                         transaction.commit();
                         hibernateSession.close();
                         HttpSession httpSession = request.getSession();
-                        httpSession.setAttribute("notification","La catégorie "+categorie.getTitre()+" à bien était supprimer !");
+                        httpSession.setAttribute("notification","La catégorie "+categorie.getTitre()+" a bien était supprimer !");
                         response.sendRedirect("admin.jsp");
                         return;
                     }else{
@@ -209,7 +215,7 @@ public class OperationAdmin extends HttpServlet
                         transaction.commit();
                         hibernateSession.close();
                         HttpSession httpSession = request.getSession();
-                        httpSession.setAttribute("notification","Le produit "+article.getNomProduit()+" à bien était supprimer !");
+                        httpSession.setAttribute("notification","Le produit "+article.getNomProduit()+" a bien était supprimé !");
                         response.sendRedirect("admin.jsp");
                         return;
                     }else{
